@@ -6,8 +6,11 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-# ── 1 · Repo discovery ────────────────────────────────────────────────────────
-DATA_REPO = Path(os.getenv("DATA_REPO", "/Users/bm/Desktop/pops-analytics-v2/data_repo")).expanduser()
+# Get the repository root directory by navigating up from the current file's location
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+
+# Define the data repo path relative to the repository root
+DATA_REPO = _REPO_ROOT / "data_repo"
 
 # ── 2 · Configurable page type rules ──────────────────────────────────────────
 PAGE_TYPE_RULES = {
