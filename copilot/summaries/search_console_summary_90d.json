@@ -1,0 +1,124 @@
+{
+  "clicks": 47,
+  "impressions": 38606,
+  "avg_position": 51.57990506109021,
+  "ctr": 0.12174273429000673,
+  "clicks_delta": 6,
+  "impressions_delta": -6669,
+  "avg_position_delta": 2.374299145504473,
+  "ctr_delta": 0.031185031363446816,
+  "date_range": "2025-03-06 to 2025-06-03",
+  "period_days": 90,
+  "window_days": 90,
+  "clicks_by_device": {
+    "DESKTOP": 25,
+    "MOBILE": 20,
+    "TABLET": 2
+  },
+  "country_breakdowns": {
+    "United States": {
+      "clicks": 12,
+      "impressions": 12133,
+      "avg_position": 49.34288099907411,
+      "ctr": 0.09890381603890218,
+      "clicks_delta": 1,
+      "impressions_delta": -1524,
+      "avg_position_delta": 5.262534814563196,
+      "ctr_delta": 0.018359040465935936,
+      "top_queries": {
+        "pops studio": 5,
+        "pops furniture": 4,
+        "bedside floating shelf": 1,
+        "floral swing": 1,
+        "wood porch swing bed": 1
+      },
+      "top_pages": {
+        "https://pops.studio/": 7,
+        "https://pops.studio/collections/all": 1,
+        "https://pops.studio/collections/bathroom-vanity-units": 1,
+        "https://pops.studio/products/adult-swing-faux-flowers?variant=42229011579030&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&com_cvv=8fb3d522dc163aeadb66e08cd7450cbbdddc64c6cf2e8891f6d48747c6d56d2c": 1,
+        "https://pops.studio/products/oak-bedside-shelf-one-drawer": 1
+      }
+    },
+    "Australia": {
+      "clicks": 7,
+      "impressions": 859,
+      "avg_position": 36.24175951717735,
+      "ctr": 0.8149010477299184,
+      "clicks_delta": 2,
+      "impressions_delta": -394,
+      "avg_position_delta": -13.887258632322144,
+      "ctr_delta": 0.4158587492462792,
+      "top_queries": {
+        "pops studio": 2,
+        "kids trapeze": 1,
+        "modern bathroom vanity units": 1,
+        "oak floating bedside shelf": 1,
+        "pops furniture": 1
+      },
+      "top_pages": {
+        "https://pops.studio/": 2,
+        "https://pops.studio/collections/bathroom-vanity-units": 1,
+        "https://pops.studio/collections/bedside-shelves": 1,
+        "https://pops.studio/products/base-modern-oak-bathroom-vanity-cabinet-with-2-drawers-900mm-1000mm-1200mm-copy": 1,
+        "https://pops.studio/products/porch-swing-bed-large?variant=42452399325334&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic": 1
+      }
+    },
+    "Ireland": {
+      "clicks": 7,
+      "impressions": 319,
+      "avg_position": 50.485368956743,
+      "ctr": 2.19435736677116,
+      "clicks_delta": 3,
+      "impressions_delta": -304,
+      "avg_position_delta": -5.4665242772731375,
+      "ctr_delta": 1.5523027921323154,
+      "top_queries": {
+        "pops studio": 6,
+        "corian worktop": 1
+      },
+      "top_pages": {
+        "https://pops.studio/": 6,
+        "https://pops.studio/products/offer-for-vincent-12mm-white-corian-worktop": 1
+      }
+    },
+    "United Kingdom": {
+      "clicks": 5,
+      "impressions": 4572,
+      "avg_position": 47.666169223752895,
+      "ctr": 0.10936132983377078,
+      "clicks_delta": -8,
+      "impressions_delta": -807,
+      "avg_position_delta": -2.11606647590758,
+      "ctr_delta": -0.1323192799449985,
+      "top_queries": {
+        "pops studio": 4,
+        "scandi bathroom vanity": 1
+      },
+      "top_pages": {
+        "https://pops.studio/": 4,
+        "https://pops.studio/products/oak-bathroom-vanity-unit-worktop": 1
+      }
+    },
+    "Canada": {
+      "clicks": 3,
+      "impressions": 969,
+      "avg_position": 42.76600161225313,
+      "ctr": 0.30959752321981426,
+      "clicks_delta": 1,
+      "impressions_delta": -161,
+      "avg_position_delta": 2.205783747659524,
+      "ctr_delta": 0.1326063727773364,
+      "top_queries": {
+        "corian countertop": 1,
+        "swing indoor": 1,
+        "wooden indoor swing": 1
+      },
+      "top_pages": {
+        "https://pops.studio/products/indoor-swing-cotton-ropes": 1,
+        "https://pops.studio/products/indoor-swing-vintage?variant=42228492206230&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic": 1,
+        "https://pops.studio/products/offer-for-vincent-12mm-white-corian-worktop": 1
+      }
+    }
+  }
+}

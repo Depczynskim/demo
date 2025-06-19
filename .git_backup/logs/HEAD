@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 829e85a76ac269885e45f3b5f525011e2cfbd266 BM <bm@BMs-MacBook-Air.local> 1750371304 +0200	commit (initial): Initial commit
+829e85a76ac269885e45f3b5f525011e2cfbd266 0000000000000000000000000000000000000000 BM <bm@BMs-MacBook-Air.local> 1750371414 +0200	Branch: renamed refs/heads/main to refs/heads/main
+829e85a76ac269885e45f3b5f525011e2cfbd266 829e85a76ac269885e45f3b5f525011e2cfbd266 BM <bm@BMs-MacBook-Air.local> 1750371414 +0200	Branch: renamed refs/heads/main to refs/heads/main
+829e85a76ac269885e45f3b5f525011e2cfbd266 659011c620a843f5ce3030253f47142991f778c4 BM <bm@BMs-MacBook-Air.local> 1750371568 +0200	commit: Remove sensitive files from repository
+659011c620a843f5ce3030253f47142991f778c4 99e508b0bb8ad004aefd98c455aa68eb50250c7d BM <bm@BMs-MacBook-Air.local> 1750371568 +0200	filter-branch: rewrite
+99e508b0bb8ad004aefd98c455aa68eb50250c7d de91e846d20bf5e8d2fe1d72c51d60bfd1478736 BM <bm@BMs-MacBook-Air.local> 1750372070 +0200	commit: Update requirements.txt with all necessary dependencies for Streamlit Cloud deployment
+de91e846d20bf5e8d2fe1d72c51d60bfd1478736 5f5da6d0c71a0ffe218424d4967f5ac883355db4 BM <bm@BMs-MacBook-Air.local> 1750372119 +0200	commit: Add matplotlib to requirements.txt for Streamlit Cloud deployment

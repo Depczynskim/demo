@@ -1,0 +1,14 @@
+plotly
+pandas
+numpy
+scikit-learn
+sqlalchemy
+openai
+python-dotenv
+fastapi
+pydantic
+google-cloud-bigquery
+google-auth
+pycountry
+streamlit
+matplotlib 

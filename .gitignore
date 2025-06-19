@@ -1,0 +1,14 @@
+# Secrets
+.env
+new-google-ads-key.json
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Mac
+.DS_Store
+
+# Build artifacts
+.pytest_cache/ 

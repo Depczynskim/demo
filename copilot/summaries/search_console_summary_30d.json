@@ -1,0 +1,106 @@
+{
+  "clicks": 15,
+  "impressions": 8087,
+  "avg_position": 51.66349404932119,
+  "ctr": 0.1854828737479906,
+  "clicks_delta": -6,
+  "impressions_delta": -3923,
+  "avg_position_delta": 3.0653127834449805,
+  "ctr_delta": 0.010628585654734984,
+  "date_range": "2025-05-05 to 2025-06-03",
+  "period_days": 30,
+  "window_days": 30,
+  "clicks_by_device": {
+    "DESKTOP": 8,
+    "MOBILE": 6,
+    "TABLET": 1
+  },
+  "country_breakdowns": {
+    "United Kingdom": {
+      "clicks": 4,
+      "impressions": 605,
+      "avg_position": 44.64972014925373,
+      "ctr": 0.6611570247933884,
+      "clicks_delta": 4,
+      "impressions_delta": -176,
+      "avg_position_delta": 1.3793732200460411,
+      "ctr_delta": 0.6611570247933884,
+      "top_queries": {
+        "pops studio": 3,
+        "scandi bathroom vanity": 1
+      },
+      "top_pages": {
+        "https://pops.studio/": 3,
+        "https://pops.studio/products/oak-bathroom-vanity-unit-worktop": 1
+      }
+    },
+    "United States": {
+      "clicks": 4,
+      "impressions": 2883,
+      "avg_position": 50.67903275228108,
+      "ctr": 0.1387443635102324,
+      "clicks_delta": -3,
+      "impressions_delta": -1014,
+      "avg_position_delta": 3.546362293091576,
+      "ctr_delta": -0.04088098932528211,
+      "top_queries": {
+        "pops furniture": 2,
+        "pops studio": 2
+      },
+      "top_pages": {
+        "https://pops.studio/": 3,
+        "https://pops.studio/collections/all": 1
+      }
+    },
+    "Spain": {
+      "clicks": 2,
+      "impressions": 55,
+      "avg_position": 50.872727272727275,
+      "ctr": 3.6363636363636362,
+      "clicks_delta": 2,
+      "impressions_delta": -23,
+      "avg_position_delta": 2.552214452214457,
+      "ctr_delta": 3.6363636363636362,
+      "top_queries": {
+        "bathroom vanity": 1,
+        "pops studio": 1
+      },
+      "top_pages": {
+        "https://pops.studio/": 1,
+        "https://pops.studio/products/oak-bathroom-vanity-with-2-drawers?variant=44231086440598&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&gPromoCode=1290433069206": 1
+      }
+    },
+    "Canada": {
+      "clicks": 1,
+      "impressions": 219,
+      "avg_position": 36.98064516129032,
+      "ctr": 0.45662100456621,
+      "clicks_delta": 0,
+      "impressions_delta": 0,
+      "avg_position_delta": -6.545797146401988,
+      "ctr_delta": 0.0,
+      "top_queries": {
+        "swing indoor": 1
+      },
+      "top_pages": {
+        "https://pops.studio/products/indoor-swing-vintage?variant=42228492206230&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic": 1
+      }
+    },
+    "Cura\u00e7ao": {
+      "clicks": 1,
+      "impressions": 4,
+      "avg_position": 3.0,
+      "ctr": 25.0,
+      "clicks_delta": 1,
+      "impressions_delta": 4,
+      "avg_position_delta": null,
+      "ctr_delta": 25.0,
+      "top_queries": {
+        "floating vanity bathroom": 1
+      },
+      "top_pages": {
+        "https://pops.studio/products/oak-bathroom-vanity-unit-floating-square?variant=42883955163286&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic": 1
+      }
+    }
+  }
+}

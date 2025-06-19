@@ -1,0 +1,43 @@
+{
+  "window_days": 90,
+  "date_range": "2025-06-01 to 2025-06-06",
+  "sessions": 178,
+  "conversions": 0,
+  "ads_impressions": 1270,
+  "ads_clicks": 89,
+  "ads_cost": 144.689724,
+  "ads_ctr": 7.007874015748032,
+  "ads_l5_sessions": 3,
+  "ads_cost_per_l5": 48.229908,
+  "search_impressions": 0,
+  "search_clicks": 0,
+  "search_ctr": 0.0,
+  "conversion_rate_pct": 0.0,
+  "level_counts": {
+    "1": 19,
+    "2": 8,
+    "3": 32,
+    "4": 71,
+    "5": 25
+  },
+  "signal_lifts": {
+    "faq_click": 6.69,
+    "gallery_click": 2.94,
+    "three_pageviews": 1.76,
+    "onsite_search": 0.5
+  },
+  "total_events_delta": 0,
+  "unique_users_delta": 0,
+  "sessions_delta": 0,
+  "page_views_delta": 0,
+  "avg_engagement_time_sec_delta": 0,
+  "impressions_delta": 0,
+  "clicks_delta": 0,
+  "cost_delta": 0,
+  "conversions_delta": 0,
+  "conversion_value_delta": 0,
+  "l5_sessions_delta": 0,
+  "cost_per_l5_delta": 0,
+  "avg_position_delta": 2.374299145504473,
+  "ctr_delta": 0.031185031363446816
+}

@@ -1,0 +1,82 @@
+{# Pops Analytics – USER prompt #}
+{% set combined = ctx.get('combined', {}) %}
+{%- set window = ctx.window_days -%}
+{%- set corrs = combined.get('correlations', {}) -%}
+
+Additional context snippets
+{% for chunk in extra_context %}
+---
+{{ chunk }}
+{% endfor %}
+
+Key KPIs ({{ window }}-day window)
+• Sessions:      {{ combined.get('sessions', 'n/a') }} {%- if combined.get('sessions_delta') is not none -%} (Δ {{ '%+d' % combined.get('sessions_delta') }}) {%- endif -%}
+• Conversions:   {{ combined.get('conversions', 'n/a') }} {%- if combined.get('conversions_delta') is not none -%} (Δ {{ '%+d' % combined.get('conversions_delta') }}) {%- endif -%}
+• CVR:           {{ combined.get('conversion_rate_pct', 'n/a') }} %
+• Ads L5 sess.:  {{ combined.get('ads_l5_sessions', 'n/a') }}
+• Cost / L5:     {{ combined.get('ads_cost_per_l5') | gbp }}
+• Ads CTR:       {{ combined.get('ads_ctr') | pct(1) }}
+• Search CTR:    {{ combined.get('search_ctr') | pct(1) }}
+• Ads Clicks:    {{ combined.get('ads_clicks', 'n/a') }} {%- if combined.get('ads_clicks_delta') is not none -%} (Δ {{ '%+d' % combined.get('ads_clicks_delta') }}) {%- endif -%}
+• Search Clicks: {{ combined.get('search_clicks', 'n/a') }} {%- if combined.get('search_clicks_delta') is not none -%} (Δ {{ '%+d' % combined.get('search_clicks_delta') }}) {%- endif -%}
+• L5 sessions:  {{ combined.get('ads_l5_sessions', combined.get('level_counts', {}).get(5, 'n/a')) }} {%- if combined.get('l5_sessions_delta') is not none -%} (Δ {{ '%+d' % combined.get('l5_sessions_delta') }}) {%- endif -%}
+
+{% if corrs %}
+Correlation signals
+{% for label, value in corrs.items() %}
+• {{ label | replace('_', ' ') }}: {{ value if value is not none else 'n/a' }}
+{% endfor %}
+{% endif %}
+
+# -------------------------------------------------------- #
+
+{# Behavioural signal lifts – Level-5 vs non-L5           #}
+{# -------------------------------------------------------- #}
+{% set lifts = ctx.get('ga4', {}).get('signal_lifts', {}) %}
+{% if lifts %}
+Behavioural lifts (Level-5 vs others)
+{% for sig, lift in lifts.items() %}
+• {{ sig | replace('_', ' ') }}: {{ lift if lift is not none else 'n/a' }} ×
+{% endfor %}
+{% endif %}
+
+# -------------------------------------------------------- #
+
+{# Global engagement-level counts (L3/L4/L5)              #}
+# -------------------------------------------------------- #
+{% set lc = combined.get('level_counts', {}) %}
+{% if lc %}
+Engagement levels (sessions)
+• L3: {{ lc.get(3, 0) }}
+• L4: {{ lc.get(4, 0) }}
+• L5: {{ lc.get(5, 0) }}
+{% endif %}
+
+# -------------------------------------------------------- #
+
+```DATA
+SESSIONS={{ combined.get('sessions', 'n/a') }}
+SESSIONS_DELTA={{ combined.get('sessions_delta', 0) }}
+ADS_CLICKS={{ combined.get('ads_clicks', 'n/a') }}
+ADS_CLICKS_DELTA={{ combined.get('ads_clicks_delta', 0) }}
+ADS_COST={{ combined.get('ads_cost', 'n/a') }}
+ADS_COST_DELTA={{ combined.get('cost_delta', 0) or combined.get('ads_cost_delta', 0) }}
+L5_SESSIONS={{ combined.get('level_counts', {}).get(5, 0) }}
+L5_SESSIONS_DELTA={{ combined.get('l5_sessions_delta', 0) }}
+COST_PER_L5={{ combined.get('ads_cost_per_l5', 'n/a') }}
+```
+
+# -------------------------------------------------------- #
+
+User question (if provided):
+"""
+{{ question }}
+"""
+
+Response checklist
+1. Follow the section hierarchy (Overview → Countries → Ads → Recommendations).
+2. Descriptive first, then insight, then quantify.
+3. Use engagement-level metrics + lifts in each narrative.
+4. Country sections must quote timing patterns and level counts.
+5. Ads section must cite cost_per_l5 and best / worst campaigns.
+6. Recommendations must link to KPI they aim to improve. 

@@ -1,0 +1,106 @@
+{
+  "total_impressions": 1270,
+  "total_clicks": 89,
+  "total_cost": 144.689724,
+  "total_conversions": 6,
+  "total_conversion_value": 6.0,
+  "ctr": 7.007874015748032,
+  "avg_cpc": 1.6257272359550563,
+  "cpa": 24.114954,
+  "roas": 0.041468045097660146,
+  "l5_sessions": 4,
+  "cost_per_l5": 36.172431,
+  "campaign_breakdowns": {
+    "AU AdWords Vanities": {
+      "impressions": 123,
+      "clicks": 12,
+      "cost": 14.923116,
+      "conversions": 6,
+      "conversion_value": 6.0,
+      "ctr": 9.75609756097561,
+      "cpa": 2.487186,
+      "roas": 0.4020608028510936,
+      "avg_cpc": 1.243593,
+      "top_keywords": {
+        "solid wood vanity": 4,
+        "bathroom cabinet made to measure": 3,
+        "wood bathroom vanity": 2,
+        "wooden bathroom cabinet": 2,
+        "custom made bathroom vanity": 1
+      },
+      "clicks_by_day": {
+        "Sunday": 26,
+        "Wednesday": 21
+      },
+      "est_l5_sessions": 1,
+      "cost_per_est_l5": 14.923116
+    },
+    "UK AdWords Vanities": {
+      "impressions": 570,
+      "clicks": 36,
+      "cost": 46.724628,
+      "conversions": 0,
+      "conversion_value": 0.0,
+      "ctr": 6.315789473684211,
+      "cpa": 0,
+      "roas": 0.0,
+      "avg_cpc": 1.2979063333333334,
+      "top_keywords": {
+        "solid wood bathroom vanity": 8,
+        "custom made bathroom vanities": 7,
+        "floating bathroom vanities": 5,
+        "wood bathroom vanity": 4,
+        "wooden bathroom vanity": 3
+      },
+      "clicks_by_day": {
+        "Sunday": 79,
+        "Tuesday": 59
+      },
+      "est_l5_sessions": 2,
+      "cost_per_est_l5": 23.362314
+    },
+    "AdWords Vanities": {
+      "impressions": 577,
+      "clicks": 41,
+      "cost": 83.04198,
+      "conversions": 0,
+      "conversion_value": 0.0,
+      "ctr": 7.105719237435008,
+      "cpa": 0,
+      "roas": 0.0,
+      "avg_cpc": 2.0254141463414634,
+      "top_keywords": {
+        "custom made bathroom vanities": 11,
+        "solid wood 36 vanity": 6,
+        "24 inch floating vanity": 3,
+        "24 inch wood bathroom vanity": 3,
+        "custom made vanity": 3
+      },
+      "clicks_by_day": {
+        "Monday": 90,
+        "Wednesday": 74
+      },
+      "est_l5_sessions": 2,
+      "cost_per_est_l5": 41.52099
+    }
+  },
+  "top_campaigns": {
+    "AdWords Vanities": 41,
+    "UK AdWords Vanities": 36,
+    "AU AdWords Vanities": 12
+  },
+  "clicks_by_day": {
+    "Sunday": 105,
+    "Wednesday": 95,
+    "Monday": 90,
+    "Tuesday": 59
+  },
+  "window_days": 365,
+  "impressions_delta": null,
+  "clicks_delta": null,
+  "cost_delta": null,
+  "conversions_delta": null,
+  "conversion_value_delta": null,
+  "l5_sessions_delta": null,
+  "cost_per_l5_delta": null
+}

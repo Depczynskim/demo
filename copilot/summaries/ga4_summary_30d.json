@@ -1,0 +1,267 @@
+{
+  "total_events": 2584,
+  "unique_users": 154,
+  "sessions": 178,
+  "page_views": 718,
+  "avg_engagement_time_sec": 6.62588622754491,
+  "top_days": null,
+  "top_hours": {
+    "21": 355,
+    "13": 259,
+    "22": 240,
+    "16": 235,
+    "18": 161
+  },
+  "top_hours_for_top_day": null,
+  "top_search_terms": null,
+  "top_faq_questions": null,
+  "top_products": null,
+  "top_countries": "geo_country\nUnited States     1168\nUnited Kingdom     637\nIreland            344\nAustralia          109\nNetherlands         83\nName: count, dtype: int64",
+  "country_breakdowns": {
+    "United States": {
+      "top_channels": {
+        "pinterest.com": 457,
+        "google": 369,
+        "(direct)": 248,
+        "chatgpt.com": 44,
+        "pinterest": 27
+      },
+      "top_traffic_sources": [
+        {
+          "traffic_source": "pinterest.com",
+          "traffic_medium": "referral",
+          "count": 457
+        },
+        {
+          "traffic_source": "(direct)",
+          "traffic_medium": "(none)",
+          "count": 248
+        },
+        {
+          "traffic_source": "google",
+          "traffic_medium": "organic",
+          "count": 225
+        },
+        {
+          "traffic_source": "google",
+          "traffic_medium": "cpc",
+          "count": 144
+        },
+        {
+          "traffic_source": "pinterest",
+          "traffic_medium": "clickthrough",
+          "count": 27
+        }
+      ],
+      "top_days": {
+        "Monday": 328,
+        "Wednesday": 301,
+        "Tuesday": 257
+      },
+      "peak_hours_best_day": {
+        "day": "Monday",
+        "hours": {
+          "13": 136,
+          "20": 35,
+          "19": 22,
+          "15": 21,
+          "21": 21
+        }
+      },
+      "top_search_terms": {},
+      "top_faq_questions": []
+    },
+    "United Kingdom": {
+      "top_channels": {
+        "google": 372,
+        "(direct)": 230,
+        "etsy.com": 27,
+        "uk.pinterest.com": 8
+      },
+      "top_traffic_sources": [
+        {
+          "traffic_source": "(direct)",
+          "traffic_medium": "(none)",
+          "count": 230
+        },
+        {
+          "traffic_source": "google",
+          "traffic_medium": "cpc",
+          "count": 195
+        },
+        {
+          "traffic_source": "google",
+          "traffic_medium": "organic",
+          "count": 177
+        },
+        {
+          "traffic_source": "etsy.com",
+          "traffic_medium": "referral",
+          "count": 27
+        },
+        {
+          "traffic_source": "uk.pinterest.com",
+          "traffic_medium": "referral",
+          "count": 8
+        }
+      ],
+      "top_days": {
+        "Sunday": 186,
+        "Monday": 136,
+        "Wednesday": 115
+      },
+      "peak_hours_best_day": {
+        "day": "Sunday",
+        "hours": {
+          "21": 59,
+          "18": 26,
+          "9": 22,
+          "10": 18,
+          "13": 17
+        }
+      },
+      "top_search_terms": {
+        "shelf": 1
+      },
+      "top_faq_questions": []
+    },
+    "Ireland": {
+      "top_channels": {
+        "(direct)": 324,
+        "google": 20
+      },
+      "top_traffic_sources": [
+        {
+          "traffic_source": "(direct)",
+          "traffic_medium": "(none)",
+          "count": 324
+        },
+        {
+          "traffic_source": "google",
+          "traffic_medium": "organic",
+          "count": 20
+        }
+      ],
+      "top_days": {
+        "Friday": 202,
+        "Thursday": 139,
+        "Tuesday": 3
+      },
+      "peak_hours_best_day": {
+        "day": "Friday",
+        "hours": {
+          "22": 118,
+          "21": 77,
+          "13": 6,
+          "23": 1
+        }
+      },
+      "top_faq_questions": []
+    },
+    "Australia": {
+      "top_channels": {
+        "google": 109
+      },
+      "top_traffic_sources": [
+        {
+          "traffic_source": "google",
+          "traffic_medium": "organic",
+          "count": 75
+        },
+        {
+          "traffic_source": "google",
+          "traffic_medium": "cpc",
+          "count": 34
+        }
+      ],
+      "top_days": {
+        "Monday": 75,
+        "Sunday": 24,
+        "Wednesday": 10
+      },
+      "peak_hours_best_day": {
+        "day": "Monday",
+        "hours": {
+          "0": 75
+        }
+      },
+      "top_faq_questions": []
+    },
+    "Netherlands": {
+      "top_channels": {
+        "google": 83
+      },
+      "top_traffic_sources": [
+        {
+          "traffic_source": "google",
+          "traffic_medium": "organic",
+          "count": 83
+        }
+      ],
+      "top_days": {
+        "Wednesday": 83
+      },
+      "peak_hours_best_day": {
+        "day": "Wednesday",
+        "hours": {
+          "7": 83
+        }
+      }
+    }
+  },
+  "top_channels": {
+    "google": 1128,
+    "(direct)": 828,
+    "pinterest.com": 467,
+    "chatgpt.com": 44,
+    "etsy.com": 27
+  },
+  "top_traffic_sources": [
+    {
+      "traffic_source": "(direct)",
+      "traffic_medium": "(none)",
+      "count": 828
+    },
+    {
+      "traffic_source": "google",
+      "traffic_medium": "organic",
+      "count": 755
+    },
+    {
+      "traffic_source": "pinterest.com",
+      "traffic_medium": "referral",
+      "count": 467
+    },
+    {
+      "traffic_source": "google",
+      "traffic_medium": "cpc",
+      "count": 373
+    },
+    {
+      "traffic_source": "etsy.com",
+      "traffic_medium": "referral",
+      "count": 27
+    }
+  ],
+  "top_products_conversions": null,
+  "date_range": "2025-06-01 to 2025-06-06",
+  "window_days": 30,
+  "level_counts": {
+    "1": 19,
+    "2": 8,
+    "3": 32,
+    "4": 71,
+    "5": 25
+  },
+  "signal_lifts": {
+    "faq_click": 6.69,
+    "gallery_click": 2.94,
+    "three_pageviews": 1.76,
+    "onsite_search": 0.5
+  },
+  "total_events_delta": null,
+  "unique_users_delta": null,
+  "sessions_delta": null,
+  "page_views_delta": null,
+  "avg_engagement_time_sec_delta": null
+}

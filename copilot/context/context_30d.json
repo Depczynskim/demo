@@ -1,0 +1,526 @@
+{
+  "window_days": 30,
+  "generated_at": "2025-06-15T01:15:00Z",
+  "ga4": {
+    "total_events": 2584,
+    "unique_users": 154,
+    "sessions": 178,
+    "page_views": 718,
+    "avg_engagement_time_sec": 6.62588622754491,
+    "top_days": null,
+    "top_hours": {
+      "21": 355,
+      "13": 259,
+      "22": 240,
+      "16": 235,
+      "18": 161
+    },
+    "top_hours_for_top_day": null,
+    "top_search_terms": null,
+    "top_faq_questions": null,
+    "top_products": null,
+    "top_countries": "geo_country\nUnited States     1168\nUnited Kingdom     637\nIreland            344\nAustralia          109\nNetherlands         83\nName: count, dtype: int64",
+    "country_breakdowns": {
+      "United States": {
+        "top_channels": {
+          "pinterest.com": 457,
+          "google": 369,
+          "(direct)": 248,
+          "chatgpt.com": 44,
+          "pinterest": 27
+        },
+        "top_traffic_sources": [
+          {
+            "traffic_source": "pinterest.com",
+            "traffic_medium": "referral",
+            "count": 457
+          },
+          {
+            "traffic_source": "(direct)",
+            "traffic_medium": "(none)",
+            "count": 248
+          },
+          {
+            "traffic_source": "google",
+            "traffic_medium": "organic",
+            "count": 225
+          },
+          {
+            "traffic_source": "google",
+            "traffic_medium": "cpc",
+            "count": 144
+          },
+          {
+            "traffic_source": "pinterest",
+            "traffic_medium": "clickthrough",
+            "count": 27
+          }
+        ],
+        "top_days": {
+          "Monday": 328,
+          "Wednesday": 301,
+          "Tuesday": 257
+        },
+        "peak_hours_best_day": {
+          "day": "Monday",
+          "hours": {
+            "13": 136,
+            "20": 35,
+            "19": 22,
+            "15": 21,
+            "21": 21
+          }
+        },
+        "top_search_terms": {},
+        "top_faq_questions": []
+      },
+      "United Kingdom": {
+        "top_channels": {
+          "google": 372,
+          "(direct)": 230,
+          "etsy.com": 27,
+          "uk.pinterest.com": 8
+        },
+        "top_traffic_sources": [
+          {
+            "traffic_source": "(direct)",
+            "traffic_medium": "(none)",
+            "count": 230
+          },
+          {
+            "traffic_source": "google",
+            "traffic_medium": "cpc",
+            "count": 195
+          },
+          {
+            "traffic_source": "google",
+            "traffic_medium": "organic",
+            "count": 177
+          },
+          {
+            "traffic_source": "etsy.com",
+            "traffic_medium": "referral",
+            "count": 27
+          },
+          {
+            "traffic_source": "uk.pinterest.com",
+            "traffic_medium": "referral",
+            "count": 8
+          }
+        ],
+        "top_days": {
+          "Sunday": 186,
+          "Monday": 136,
+          "Wednesday": 115
+        },
+        "peak_hours_best_day": {
+          "day": "Sunday",
+          "hours": {
+            "21": 59,
+            "18": 26,
+            "9": 22,
+            "10": 18,
+            "13": 17
+          }
+        },
+        "top_search_terms": {
+          "shelf": 1
+        },
+        "top_faq_questions": []
+      },
+      "Ireland": {
+        "top_channels": {
+          "(direct)": 324,
+          "google": 20
+        },
+        "top_traffic_sources": [
+          {
+            "traffic_source": "(direct)",
+            "traffic_medium": "(none)",
+            "count": 324
+          },
+          {
+            "traffic_source": "google",
+            "traffic_medium": "organic",
+            "count": 20
+          }
+        ],
+        "top_days": {
+          "Friday": 202,
+          "Thursday": 139,
+          "Tuesday": 3
+        },
+        "peak_hours_best_day": {
+          "day": "Friday",
+          "hours": {
+            "22": 118,
+            "21": 77,
+            "13": 6,
+            "23": 1
+          }
+        },
+        "top_faq_questions": []
+      },
+      "Australia": {
+        "top_channels": {
+          "google": 109
+        },
+        "top_traffic_sources": [
+          {
+            "traffic_source": "google",
+            "traffic_medium": "organic",
+            "count": 75
+          },
+          {
+            "traffic_source": "google",
+            "traffic_medium": "cpc",
+            "count": 34
+          }
+        ],
+        "top_days": {
+          "Monday": 75,
+          "Sunday": 24,
+          "Wednesday": 10
+        },
+        "peak_hours_best_day": {
+          "day": "Monday",
+          "hours": {
+            "0": 75
+          }
+        },
+        "top_faq_questions": []
+      },
+      "Netherlands": {
+        "top_channels": {
+          "google": 83
+        },
+        "top_traffic_sources": [
+          {
+            "traffic_source": "google",
+            "traffic_medium": "organic",
+            "count": 83
+          }
+        ],
+        "top_days": {
+          "Wednesday": 83
+        },
+        "peak_hours_best_day": {
+          "day": "Wednesday",
+          "hours": {
+            "7": 83
+          }
+        }
+      }
+    },
+    "top_channels": {
+      "google": 1128,
+      "(direct)": 828,
+      "pinterest.com": 467,
+      "chatgpt.com": 44,
+      "etsy.com": 27
+    },
+    "top_traffic_sources": [
+      {
+        "traffic_source": "(direct)",
+        "traffic_medium": "(none)",
+        "count": 828
+      },
+      {
+        "traffic_source": "google",
+        "traffic_medium": "organic",
+        "count": 755
+      },
+      {
+        "traffic_source": "pinterest.com",
+        "traffic_medium": "referral",
+        "count": 467
+      },
+      {
+        "traffic_source": "google",
+        "traffic_medium": "cpc",
+        "count": 373
+      },
+      {
+        "traffic_source": "etsy.com",
+        "traffic_medium": "referral",
+        "count": 27
+      }
+    ],
+    "top_products_conversions": null,
+    "date_range": "2025-06-01 to 2025-06-06",
+    "window_days": 30,
+    "level_counts": {
+      "1": 19,
+      "2": 8,
+      "3": 32,
+      "4": 71,
+      "5": 25
+    },
+    "signal_lifts": {
+      "faq_click": 6.69,
+      "gallery_click": 2.94,
+      "three_pageviews": 1.76,
+      "onsite_search": 0.5
+    },
+    "total_events_delta": null,
+    "unique_users_delta": null,
+    "sessions_delta": null,
+    "page_views_delta": null,
+    "avg_engagement_time_sec_delta": null
+  },
+  "google_ads": {
+    "total_impressions": 456,
+    "total_clicks": 35,
+    "total_cost": 56.357541000000005,
+    "total_conversions": 6,
+    "total_conversion_value": 6.0,
+    "ctr": 7.675438596491229,
+    "avg_cpc": 1.6102154571428573,
+    "cpa": 9.3929235,
+    "roas": 0.10646312620346582,
+    "l5_sessions": 3,
+    "cost_per_l5": 18.785847,
+    "campaign_breakdowns": {
+      "AU AdWords Vanities": {
+        "impressions": 53,
+        "clicks": 7,
+        "cost": 8.910696,
+        "conversions": 6,
+        "conversion_value": 6.0,
+        "ctr": 13.20754716981132,
+        "cpa": 1.4851159999999999,
+        "roas": 0.6733480751671923,
+        "avg_cpc": 1.2729565714285713,
+        "top_keywords": {
+          "bathroom cabinet made to measure": 2,
+          "solid wood vanity": 2,
+          "wooden bathroom cabinet": 2,
+          "wood bathroom vanity": 1,
+          "bespoke bathroom vanity": 0
+        },
+        "clicks_by_day": {
+          "Sunday": 10,
+          "Wednesday": 7
+        },
+        "est_l5_sessions": 1,
+        "cost_per_est_l5": 8.910696
+      },
+      "UK AdWords Vanities": {
+        "impressions": 223,
+        "clicks": 11,
+        "cost": 12.777976,
+        "conversions": 0,
+        "conversion_value": 0.0,
+        "ctr": 4.932735426008969,
+        "cpa": 0,
+        "roas": 0.0,
+        "avg_cpc": 1.161634181818182,
+        "top_keywords": {
+          "floating bathroom vanities": 5,
+          "solid wood bathroom vanity": 3,
+          "contemporary bath vanity": 1,
+          "custom made bathroom vanities": 1,
+          "modern bathroom vanity": 1
+        },
+        "clicks_by_day": {
+          "Sunday": 33,
+          "Tuesday": 23
+        },
+        "est_l5_sessions": 1,
+        "cost_per_est_l5": 12.777976
+      },
+      "AdWords Vanities": {
+        "impressions": 180,
+        "clicks": 17,
+        "cost": 34.668869,
+        "conversions": 0,
+        "conversion_value": 0.0,
+        "ctr": 9.444444444444445,
+        "cpa": 0,
+        "roas": 0.0,
+        "avg_cpc": 2.0393452352941175,
+        "top_keywords": {
+          "custom made bathroom vanities": 6,
+          "24 inch floating vanity": 2,
+          "solid wood 36 vanity": 2,
+          "24 inch wood bathroom vanity": 1,
+          "30 in floating vanity": 1
+        },
+        "clicks_by_day": {
+          "Monday": 35,
+          "Wednesday": 16
+        },
+        "est_l5_sessions": 1,
+        "cost_per_est_l5": 34.668869
+      }
+    },
+    "top_campaigns": {
+      "AdWords Vanities": 17,
+      "UK AdWords Vanities": 11,
+      "AU AdWords Vanities": 7
+    },
+    "clicks_by_day": {
+      "Sunday": 43,
+      "Monday": 35,
+      "Wednesday": 23,
+      "Tuesday": 23
+    },
+    "window_days": 30,
+    "impressions_delta": null,
+    "clicks_delta": null,
+    "cost_delta": null,
+    "conversions_delta": null,
+    "conversion_value_delta": null,
+    "l5_sessions_delta": null,
+    "cost_per_l5_delta": null
+  },
+  "search_console": {
+    "clicks": 15,
+    "impressions": 8087,
+    "avg_position": 51.66349404932119,
+    "ctr": 0.1854828737479906,
+    "clicks_delta": -6,
+    "impressions_delta": -3923,
+    "avg_position_delta": 3.0653127834449805,
+    "ctr_delta": 0.010628585654734984,
+    "date_range": "2025-05-05 to 2025-06-03",
+    "period_days": 30,
+    "window_days": 30,
+    "clicks_by_device": {
+      "DESKTOP": 8,
+      "MOBILE": 6,
+      "TABLET": 1
+    },
+    "country_breakdowns": {
+      "United Kingdom": {
+        "clicks": 4,
+        "impressions": 605,
+        "avg_position": 44.64972014925373,
+        "ctr": 0.6611570247933884,
+        "clicks_delta": 4,
+        "impressions_delta": -176,
+        "avg_position_delta": 1.3793732200460411,
+        "ctr_delta": 0.6611570247933884,
+        "top_queries": {
+          "pops studio": 3,
+          "scandi bathroom vanity": 1
+        },
+        "top_pages": {
+          "https://pops.studio/": 3,
+          "https://pops.studio/products/oak-bathroom-vanity-unit-worktop": 1
+        }
+      },
+      "United States": {
+        "clicks": 4,
+        "impressions": 2883,
+        "avg_position": 50.67903275228108,
+        "ctr": 0.1387443635102324,
+        "clicks_delta": -3,
+        "impressions_delta": -1014,
+        "avg_position_delta": 3.546362293091576,
+        "ctr_delta": -0.04088098932528211,
+        "top_queries": {
+          "pops furniture": 2,
+          "pops studio": 2
+        },
+        "top_pages": {
+          "https://pops.studio/": 3,
+          "https://pops.studio/collections/all": 1
+        }
+      },
+      "Spain": {
+        "clicks": 2,
+        "impressions": 55,
+        "avg_position": 50.872727272727275,
+        "ctr": 3.6363636363636362,
+        "clicks_delta": 2,
+        "impressions_delta": -23,
+        "avg_position_delta": 2.552214452214457,
+        "ctr_delta": 3.6363636363636362,
+        "top_queries": {
+          "bathroom vanity": 1,
+          "pops studio": 1
+        },
+        "top_pages": {
+          "https://pops.studio/": 1,
+          "https://pops.studio/products/oak-bathroom-vanity-with-2-drawers?variant=44231086440598&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&gPromoCode=1290433069206": 1
+        }
+      },
+      "Canada": {
+        "clicks": 1,
+        "impressions": 219,
+        "avg_position": 36.98064516129032,
+        "ctr": 0.45662100456621,
+        "clicks_delta": 0,
+        "impressions_delta": 0,
+        "avg_position_delta": -6.545797146401988,
+        "ctr_delta": 0.0,
+        "top_queries": {
+          "swing indoor": 1
+        },
+        "top_pages": {
+          "https://pops.studio/products/indoor-swing-vintage?variant=42228492206230&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic": 1
+        }
+      },
+      "Cura\u00e7ao": {
+        "clicks": 1,
+        "impressions": 4,
+        "avg_position": 3.0,
+        "ctr": 25.0,
+        "clicks_delta": 1,
+        "impressions_delta": 4,
+        "avg_position_delta": null,
+        "ctr_delta": 25.0,
+        "top_queries": {
+          "floating vanity bathroom": 1
+        },
+        "top_pages": {
+          "https://pops.studio/products/oak-bathroom-vanity-unit-floating-square?variant=42883955163286&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic": 1
+        }
+      }
+    }
+  },
+  "combined": {
+    "window_days": 30,
+    "date_range": "2025-06-01 to 2025-06-06",
+    "sessions": 178,
+    "conversions": 0,
+    "ads_impressions": 456,
+    "ads_clicks": 35,
+    "ads_cost": 56.357541000000005,
+    "ads_ctr": 7.675438596491229,
+    "ads_l5_sessions": 3,
+    "ads_cost_per_l5": 18.785847,
+    "search_impressions": 0,
+    "search_clicks": 0,
+    "search_ctr": 0.0,
+    "conversion_rate_pct": 0.0,
+    "level_counts": {
+      "1": 19,
+      "2": 8,
+      "3": 32,
+      "4": 71,
+      "5": 25
+    },
+    "signal_lifts": {
+      "faq_click": 6.69,
+      "gallery_click": 2.94,
+      "three_pageviews": 1.76,
+      "onsite_search": 0.5
+    },
+    "total_events_delta": 0,
+    "unique_users_delta": 0,
+    "sessions_delta": 0,
+    "page_views_delta": 0,
+    "avg_engagement_time_sec_delta": 0,
+    "impressions_delta": 0,
+    "clicks_delta": 0,
+    "cost_delta": 0,
+    "conversions_delta": 0,
+    "conversion_value_delta": 0,
+    "l5_sessions_delta": 0,
+    "cost_per_l5_delta": 0,
+    "avg_position_delta": 3.0653127834449805,
+    "ctr_delta": 0.010628585654734984
+  }
+}

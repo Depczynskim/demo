@@ -1,0 +1,15 @@
+{
+  "total_impressions": 0,
+  "total_clicks": 0,
+  "total_cost": 0.0,
+  "total_conversions": 0,
+  "total_conversion_value": 0.0,
+  "ctr": 0,
+  "avg_cpc": 0,
+  "cpa": 0,
+  "roas": 0,
+  "campaign_breakdowns": null,
+  "top_campaigns": {},
+  "clicks_by_day": {},
+  "window_days": 7
+}
