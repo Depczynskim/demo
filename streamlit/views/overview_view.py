@@ -6,7 +6,7 @@ def render():
 
     st.markdown(
         """
-        This dashboard provides a live look into the marketing and sales performance for an e-commerce store. 
+        This dashboard provides a live look into the marketing and sales performance for the e-commerce store [www.pops.studio](https://www.pops.studio). 
         It automatically gathers data from Google Analytics, Google Ads, and Search Console to present a 
         unified view of what's working and where there are opportunities to grow.
 
