@@ -10,23 +10,17 @@ from utils import get_filtered_date_range
 
 def _display_filters(df_parsed):
     """Displays product and country filters and returns the filtered dataframe and selections."""
-    st.title("🛍️ Product Analysis")
+    st.title("🛍️ Product Performance Analysis")
     st.markdown(
         """
-        **What this shows:** How individual products perform across different traffic sources and user interactions. 
-        See traffic patterns and user behavior for each product.
+        This view provides a detailed look at how individual products are performing. Use it to understand 
+        customer engagement and identify which products are most popular.
 
-        **What you can explore:**
+        **What you can explore here:**
         
-        • **Traffic sources** — Understand where visitors to each product come from (search, ads, social, etc.)
-        
-        • **Geographic patterns** — See which countries show the most interest in different products
-        
-        • **User behavior** — Track how people interact with products and which pages they visit
-        
-        • **Timing insights** — Discover when people are most likely to visit product pages
-        
-        Shows all product traffic and interaction data.
+        *   **Traffic Sources:** See which channels (e.g., Google Search, Ads, direct visits) are driving traffic to specific product pages.
+        *   **Geographic Interest:** Discover which countries show the most interest in each product.
+        *   **User Behavior:** Analyze how users interact with product pages, including clicks and other events.
         """
     )
     

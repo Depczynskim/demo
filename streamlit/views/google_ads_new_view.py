@@ -687,18 +687,14 @@ def render(context):
     st.title("💰 Google Ads Performance")
     st.markdown(
         """
-        **What this shows:** Which ad campaigns, keywords, and timing strategies get the most clicks and conversions. 
-        Help you understand where your advertising budget is going.
+        This view breaks down the performance of your Google Ads campaigns. Use it to see where your advertising 
+        budget is having the most impact and find opportunities for optimization.
 
         **What you can explore:**
         
-        • **Location insights** — See which countries and cities give you the most clicks and conversions
-        
-        • **Timing patterns** — Find when your ads get the most activity
-        
-        • **Campaign comparison** — Compare different campaigns and keywords by cost, clicks, and conversions
-        
-        Shows all advertising data from Google Ads.
+        *   **Location Insights:** Discover which countries and cities are driving clicks and conversions.
+        *   **Timing Analysis:** Identify the days and times when your ads are most effective.
+        *   **Campaign Performance:** Compare campaigns, ad groups, and keywords by cost, clicks, and conversions to understand ROI.
         """
     )
     tab1, tab2, tab3 = st.tabs(["📍 Location Insights", "⏰ Timing Analysis", "📊 Campaign Performance"])

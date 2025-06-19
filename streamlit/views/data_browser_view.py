@@ -4,21 +4,17 @@ from utils import get_filtered_date_range
 
 def render(context):
     """Render the Data Browser view."""
-    st.title("🔬 GA4 Data Browser")
+    st.title("🔬 GA4 Raw Data Browser")
     st.markdown(
         """
-        **What this shows:** Individual user events and interactions on your site. Great for debugging tracking 
-        issues and understanding detailed user behavior patterns.
+        This view provides direct access to the raw event data from Google Analytics 4. It's a powerful tool 
+        for detailed analysis and for verifying that analytics tracking is working as expected.
 
-        **What you can do:**
+        **What you can do here:**
         
-        • **Filter events** — Look at specific types of interactions (clicks, page views, form submissions, etc.)
-        
-        • **Debug tracking** — Make sure your analytics are capturing data correctly
-        
-        • **Find patterns** — Spot interesting user behaviors before they show up in summary reports
-        
-        You can see up to 500 individual events at once, perfect for detailed investigation.
+        *   **Filter Specific Events:** Isolate particular user interactions, such as `page_view` or `add_to_cart`, for granular analysis.
+        *   **Debug Analytics:** Confirm that custom events and parameters are being captured correctly.
+        *   **Explore User Journeys:** Follow sequences of events to understand detailed user behavior patterns.
         """
     )
     df = context['df']

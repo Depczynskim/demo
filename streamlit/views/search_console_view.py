@@ -91,18 +91,14 @@ def render(context):
     st.title("🔍 Search Console Analysis")
     st.markdown(
         """
-        **What this shows:** Which Google searches and landing pages bring traffic to your site.
-        Help you understand what's working in SEO and what needs attention.
+        This view shows how your website performs in Google Search. Use it to see which search queries bring users 
+        to your site, which pages are most popular, and how your search ranking changes over time.
 
-        **What you can do:**
+        **What you can do here:**
         
-        • **Compare time periods** — See what's trending up or down compared to previous weeks/months
-        
-        • **Filter by location and device** — Understand how performance varies by country and device type
-        
-        • **Drill down** — Go from big picture trends to specific search queries and pages that need work
-        
-        Shows all search traffic data from Google Search Console.
+        *   **Compare Time Periods:** See if your search traffic is growing or declining.
+        *   **Filter by Location & Device:** Understand how performance differs across countries and on mobile vs. desktop.
+        *   **Analyze Specific Pages & Queries:** Drill down to see the exact search terms that lead to a specific page.
         """
     )
 
