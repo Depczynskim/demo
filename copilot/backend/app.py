@@ -132,6 +132,8 @@ async def chat(
     except FileNotFoundError as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+    # Initialize the client inside the endpoint
+    client = get_openai_client()
     if not client:
         raise HTTPException(status_code=500, detail="OpenAI client not initialized. Check server logs.")
 
