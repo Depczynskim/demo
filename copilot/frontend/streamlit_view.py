@@ -209,12 +209,24 @@ def render_report():
     # Keep the generated report in session_state so that we can reuse it for
     # TTS without incurring extra token cost unless requested.
 
+    # Generate the report when the user clicks the button.  The previous
+    # public-demo placeholder message is left here (commented out) in case we
+    # ever want to revert to the disabled state without removing code.
     if st.button("Generate Report", key="copilot_report_btn"):
-        st.info(
-            "Thank you for your interest! Report generation is disabled on this "
-            "public-facing demo due to security considerations. This feature is fully "
-            "functional in private deployments."
-        )
+        # st.info(
+        #     "Thank you for your interest! Report generation is disabled on this "
+        #     "public-facing demo due to security considerations. This feature is fully "
+        #     "functional in private deployments."
+        # )
+
+        with st.spinner("Generating AI performance report…"):
+            report_md = generate_report(model=selected_model)
+
+        if report_md:
+            # Persist so that TTS can reuse it without another LLM call
+            st.session_state["latest_report"] = report_md
+            # Display the Markdown report
+            st.markdown(report_md, unsafe_allow_html=False)
 
     # ───────────────────────────────────────────────────────────────────────
     # Text-to-Speech playback

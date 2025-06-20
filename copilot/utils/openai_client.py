@@ -23,18 +23,24 @@ def get_openai_client() -> openai.OpenAI:
     """
     api_key: Optional[str] = None
     
-    # Try Streamlit secrets first (for cloud deployment)
-    try:
-        import streamlit as st
-        if hasattr(st, 'secrets') and 'OPENAI_API_KEY' in st.secrets:
-            api_key = st.secrets['OPENAI_API_KEY']
-    except ImportError:
-        pass  # Not in a Streamlit environment
-        
-    # Fallback to environment variable (for local development)
+    # 1️⃣  Local / dev – prefer the standard environment variable so we avoid
+    #     Streamlit's "No secrets found" error when .streamlit/secrets.toml is
+    #     absent.
+    api_key = os.getenv("OPENAI_API_KEY")
+
+    # 2️⃣  Streamlit Cloud – fall back to st.secrets only if the env var wasn't
+    #     set.  Wrap in a broad try/except because *importing* streamlit outside
+    #     of a Streamlit context or accessing st.secrets with no secrets file
+    #     can raise RuntimeError.
     if not api_key:
-        api_key = os.getenv("OPENAI_API_KEY")
-        
+        try:
+            import streamlit as st  # expensive only if really running in Streamlit
+            if hasattr(st, "secrets") and "OPENAI_API_KEY" in st.secrets:
+                api_key = st.secrets["OPENAI_API_KEY"]
+        except Exception:
+            # Either Streamlit isn't available or no secrets file – ignore.
+            api_key = None
+    
     if not api_key:
         raise ValueError(
             "OpenAI API key not found. Please set either:\n"
