@@ -80,8 +80,9 @@ elif dataset == "AI-Generated Product Insights":
             "considerations. This feature is fully functional in private deployments."
         )
         st.warning(
-            "The underlying code for this feature is available in the GitHub repository, "
-            "but requires a valid OpenAI API key to be configured in secrets."
+            "The underlying code for this feature is available in the "
+            "[GitHub repository](https://github.com/Depczynskim/demo), but requires a "
+            "valid OpenAI API key to be configured in secrets."
         )
     except Exception as e:
         # Catch any other unexpected errors during render
