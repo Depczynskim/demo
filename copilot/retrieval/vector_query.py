@@ -17,14 +17,37 @@ import argparse
 
 # Requirements: pip install openai python-dotenv numpy scikit-learn
 
+# Load environment variables from .env file
 load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+# Create a client instance. The modern client automatically handles the API key
+# from the OPENAI_API_KEY environment variable.
+try:
+    client = openai.OpenAI()
+    OPENAI_ENABLED = client.api_key is not None
+except openai.OpenAIError:
+    client = None
+    OPENAI_ENABLED = False
+
+# Constants
+# ----------------------------------------------------------------------
+# Path to the directory containing summary files, relative to this script
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 VECTOR_DIR = BASE_DIR / "copilot" / "vector_storage"
 EMBEDDINGS_FILE = VECTOR_DIR / "embeddings.npy"
 METADATA_FILE = VECTOR_DIR / "metadata.pkl"
 
-openai.api_key = OPENAI_API_KEY
+def get_embedding(text_chunk: str, model="text-embedding-3-small") -> list[float]:
+    """Generate a vector embedding for a given text chunk using OpenAI (new API)."""
+    if not OPENAI_ENABLED:
+        raise ValueError("OpenAI API key not configured, cannot generate embeddings.")
+
+    text_chunk = text_chunk.replace("\n", " ")
+    response = client.embeddings.create(
+        input=[text_chunk], 
+        model=model
+    )
+    return response.data[0].embedding
 
 def embed_query(query: str):
     response = openai.embeddings.create(

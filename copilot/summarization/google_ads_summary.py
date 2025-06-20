@@ -13,8 +13,18 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'utils')))
 from logger import get_logger
 
+# Load environment variables from .env file
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Create a client instance
+try:
+    client = openai.OpenAI()
+    # A quick check to see if the key is actually available for use.
+    # If not, client.api_key will be None.
+    OPENAI_ENABLED = client.api_key is not None
+except openai.OpenAIError:
+    OPENAI_ENABLED = False
+
 logger = get_logger(__name__)
 
 # Output directory path (copilot/summaries)
@@ -275,7 +285,7 @@ def write_markdown_summary(metrics: dict[str, Any], output_path: str, date_range
 
 
 def generate_narrative(metrics: dict[str, Any]) -> str | None:
-    if not openai.api_key:
+    if not OPENAI_ENABLED:
         logger.warning("OPENAI_API_KEY not set – skipping narrative generation.")
         return None
     prompt = (
@@ -284,7 +294,7 @@ def generate_narrative(metrics: dict[str, Any]) -> str | None:
         f"Metrics JSON: {json.dumps(metrics, default=str)}"
     )
     try:
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo-0125",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.3,

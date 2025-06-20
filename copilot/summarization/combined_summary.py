@@ -17,8 +17,22 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'utils')))
 from logger import get_logger  # noqa: E402
 
+# Load environment variables from .env file
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# REMOVED - The modern client loads this automatically from the environment
+# openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Create a client instance
+try:
+    client = openai.OpenAI()
+    # A quick check to see if the key is actually available for use.
+    # If not, client.api_key will be None.
+    OPENAI_ENABLED = client.api_key is not None
+except openai.OpenAIError:
+    OPENAI_ENABLED = False
+
+# Setup logger
+# -----------------------------------------------------------------------------
 logger = get_logger(__name__)
 
 # Directory where the GA4 / Ads / SC summaries live – keep combined ones alongside
@@ -283,7 +297,7 @@ def write_markdown_summary(metrics: dict[str, Any], out_path: str, narrative: st
 # ---------------------------------------------------------------------------
 
 def generate_narrative(metrics: dict[str, Any]) -> str | None:
-    if not openai.api_key:
+    if not OPENAI_ENABLED:
         logger.warning("OPENAI_API_KEY not set – skipping narrative generation.")
         return None
     prompt = (
@@ -292,7 +306,7 @@ def generate_narrative(metrics: dict[str, Any]) -> str | None:
         f"Metrics JSON: {json.dumps(metrics, default=str)}"
     )
     try:
-        resp = openai.chat.completions.create(
+        resp = client.chat.completions.create(
             model="gpt-3.5-turbo-0125",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.3,

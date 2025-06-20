@@ -3,6 +3,8 @@ import glob
 from datetime import datetime
 import json
 from typing import Any
+from pathlib import Path
+import textwrap
 
 import pandas as pd
 import openai
@@ -15,7 +17,18 @@ from logger import get_logger
 
 # Load env and logger
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# REMOVED - The modern client loads this automatically from the environment
+# openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Create a client instance
+try:
+    client = openai.OpenAI()
+    # A quick check to see if the key is actually available for use.
+    # If not, client.api_key will be None.
+    OPENAI_ENABLED = client.api_key is not None
+except openai.OpenAIError:
+    OPENAI_ENABLED = False
+
 logger = get_logger(__name__)
 
 # ---------------------------------------------------------------------------
@@ -658,27 +671,30 @@ def generate_summaries(df):
 
 def generate_narrative(metrics: dict[str, Any]) -> str | None:
     """Generate a concise natural-language narrative using OpenAI. Returns None on failure."""
-    if not openai.api_key:
+    if not OPENAI_ENABLED:
         logger.warning("OPENAI_API_KEY not set – skipping narrative generation.")
         return None
-    prompt = (
-        "You are an e-commerce analytics assistant. Craft a concise, plain-English executive summary (≈3 sentences) "
-        "highlighting: 1) the biggest shifts in user behaviour, 2) the most important country-level differences "
-        "(traffic sources, timing, search), and 3) any standout products or FAQs.\n"
-        "Start with the overall insight, then call out one country example.\n"
-        f"Metrics JSON: {json.dumps(metrics, default=str)}"
+
+    sys_prompt = textwrap.dedent(
+        """
+        You are a Google Analytics expert analysing data for an online shop.
+        """
     )
+    user_prompt = f"Here is the data summary:\n\n{json.dumps(metrics, default=str)}"
+
     try:
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo-0125",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.3,
-            max_tokens=120,
+            messages=[
+                {"role": "system", "content": sys_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            temperature=0.2,
+            max_tokens=350,
         )
-        narrative = response.choices[0].message.content
-        return narrative
+        return response.choices[0].message.content
     except Exception as e:
-        logger.error(f"Narrative generation failed: {e}")
+        logger.error(f"OpenAI narrative generation failed: {e}")
         return None
 
 

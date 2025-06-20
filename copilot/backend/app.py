@@ -16,6 +16,7 @@ import openai
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel, Field
+from loguru import logger
 
 from pathlib import Path
 import sys
@@ -33,11 +34,23 @@ from copilot.memory.crud import fetch_history, log_message  # noqa: E402
 from copilot.llm.suggestions import generate_suggestions  # noqa: E402
 
 # Central config – provides the default model name
-from config import OPENAI_COMPLETION_MODEL  # noqa: E402
+from config import OPENAI_COMPLETION_MODEL, setup_logging, PROJECT_ROOT, SUMMARIES_DIR  # noqa: E402
 
-load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
-logger = get_logger(__name__)
+# Remove global API key setting
+# openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Create a single, reusable client instance
+# The key will be loaded from .env via load_dotenv() in the client itself
+try:
+    client = openai.OpenAI()
+except openai.OpenAIError:
+    # This will provide a clearer error if the key is missing on startup
+    print("FATAL: OpenAI API key not found. Please set OPENAI_API_KEY environment variable.")
+    client = None
+
+# App setup
+# -----------------------------------------------------------------------------
+setup_logging()
 
 app = FastAPI(title="Pops Analytics Copilot", version="0.1.0")
 
@@ -111,36 +124,37 @@ async def chat(
     except FileNotFoundError as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+    if not client:
+        raise HTTPException(status_code=500, detail="OpenAI client not initialized. Check server logs.")
+
     model_name = req.model or OPENAI_COMPLETION_MODEL or "gpt-3.5-turbo-0125"
 
-    logger.info(
-        "Calling OpenAI chat completion | model=%s | messages=%d | window=%s",
-        model_name,
-        len(messages),
-        req.window_days,
-    )
-
     try:
-        response = openai.chat.completions.create(
+        logger.info(
+            "Calling OpenAI chat completion | model=%s | messages=%d | window=%s",
+            model_name,
+            len(messages),
+            req.window_days,
+        )
+        response = client.chat.completions.create(
             model=model_name,
             messages=messages,
-            temperature=0.2,
+            temperature=0.3,
             max_tokens=400,
         )
-        answer = response.choices[0].message.content
     except Exception as e:
         logger.error("OpenAI chat completion failed: %s", e)
-        raise HTTPException(status_code=500, detail="LLM request failed.")
+        raise HTTPException(status_code=500, detail=str(e))
 
     # Persist chat turn *after* successful LLM completion so we never store
     # requests that triggered server/LLM errors.
     if session_id:
         log_message(session_id, "user", req.question)
-        log_message(session_id, "assistant", answer)
+        log_message(session_id, "assistant", response.choices[0].message.content)
 
     context_resp = [ContextChunk(score=r["score"], text=r["text"], metadata=r["metadata"]) for r in results]
 
     # Generate tailored suggestions (LLM-backed with safe fallback)
-    suggestions = generate_suggestions(req.question, answer)
+    suggestions = generate_suggestions(req.question, response.choices[0].message.content)
 
-    return ChatResponse(answer=answer, context=context_resp, suggestions=suggestions) 
+    return ChatResponse(answer=response.choices[0].message.content, context=context_resp, suggestions=suggestions) 

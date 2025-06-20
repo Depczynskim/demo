@@ -21,8 +21,17 @@ logger = get_logger(__name__)
 # Requirements: pip install openai python-dotenv numpy pyyaml
 # Set your OpenAI API key in a .env file as OPENAI_API_KEY=sk-...
 
+# Load environment variables from .env file
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Create a client instance. The modern client automatically handles the API key
+# from the OPENAI_API_KEY environment variable.
+try:
+    client = openai.OpenAI()
+    OPENAI_ENABLED = client.api_key is not None
+except openai.OpenAIError:
+    client = None
+    OPENAI_ENABLED = False
 
 # Paths resolved relative to repo root regardless of CWD
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -31,17 +40,17 @@ EMBEDDINGS_FILE = VECTOR_DIR / "embeddings.npy"
 METADATA_FILE = VECTOR_DIR / "metadata.pkl"
 
 # Use OpenAI's text-embedding-ada-002 model for real embeddings (openai>=1.0.0)
-def embed_text(text: str) -> List[float]:
+def get_embedding(text_chunk: str, model="text-embedding-3-small") -> list[float]:
     """Generate a vector embedding for a given text chunk using OpenAI (new API)."""
-    try:
-        response = openai.embeddings.create(
-            input=[text],
-            model="text-embedding-ada-002"
-        )
-        return response.data[0].embedding
-    except Exception as e:
-        print(f"[ERROR] Embedding failed: {e}")
-        return [0.0] * 1536  # Fallback to zero vector
+    if not OPENAI_ENABLED:
+        raise ValueError("OpenAI API key not configured, cannot generate embeddings.")
+    
+    text_chunk = text_chunk.replace("\n", " ")
+    response = client.embeddings.create(
+        input=[text_chunk], 
+        model=model
+    )
+    return response.data[0].embedding
 
 def parse_front_matter(md_text: str) -> dict:
     match = re.match(r"^---\n(.*?)\n---", md_text, re.DOTALL)
@@ -114,7 +123,7 @@ def upsert_to_file_storage(chunks: List[Dict]):
     for chunk in chunks:
         if chunk["id"] in existing_ids:
             continue
-        emb = embed_text(chunk["text"])
+        emb = get_embedding(chunk["text"])
         new_embeds.append(emb)
         meta = chunk.copy()
         new_meta.append(meta)
