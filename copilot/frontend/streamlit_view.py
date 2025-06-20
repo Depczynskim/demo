@@ -17,8 +17,20 @@ import tempfile
 # Use unified prompt builder
 from copilot.llm import prompt_builder
 
-load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# --- Secret / API Key Management ---
+
+# Try to get the key from Streamlit secrets first, which is the deployed-app standard.
+# Fall back to environment variables (and .env file) for local development.
+if 'OPENAI_API_KEY' in st.secrets:
+    openai.api_key = st.secrets['OPENAI_API_KEY']
+else:
+    load_dotenv()
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Check if the key is still not set
+if not openai.api_key:
+    st.error("OpenAI API key is not set. Please add it to your Streamlit secrets or .env file.")
+    st.stop()
 
 # Summary files live under ``copilot/summaries`` (not repo-root /summaries).
 # Resolve the path robustly even if the folder is moved later.
