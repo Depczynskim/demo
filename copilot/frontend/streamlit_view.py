@@ -210,26 +210,11 @@ def render_report():
     # TTS without incurring extra token cost unless requested.
 
     if st.button("Generate Report", key="copilot_report_btn"):
-        # Check a secret or env var to decide if the feature is enabled.
-        # This allows the feature to be disabled on public-facing demos.
-        enable_reporting = os.getenv("ENABLE_OPENAI_REPORTING", "false").lower() == "true"
-        try:
-            if 'ENABLE_OPENAI_REPORTING' in st.secrets:
-                enable_reporting = str(st.secrets.get("ENABLE_OPENAI_REPORTING", "false")).lower() == "true"
-        except (ImportError, AttributeError):
-            pass  # Not in a Streamlit env or secrets not available
-
-        if enable_reporting:
-            with st.spinner(f"Generating report via {selected_model} …"):
-                report = generate_report(model=selected_model)
-            st.session_state["latest_report"] = report
-            st.markdown(report)
-        else:
-            st.info(
-                "Thank you for your interest! Report generation is disabled on this "
-                "public-facing demo due to security considerations. This feature is fully "
-                "functional in private deployments."
-            )
+        st.info(
+            "Thank you for your interest! Report generation is disabled on this "
+            "public-facing demo due to security considerations. This feature is fully "
+            "functional in private deployments."
+        )
 
     # ───────────────────────────────────────────────────────────────────────
     # Text-to-Speech playback
