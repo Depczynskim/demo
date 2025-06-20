@@ -22,6 +22,12 @@ from copilot.utils.openai_client import get_openai_client
 # Load environment variables from .env file
 load_dotenv()
 
+# Restore the missing path definitions
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+VECTOR_DIR = BASE_DIR / "copilot" / "vector_storage"
+EMBEDDINGS_FILE = VECTOR_DIR / "embeddings.npy"
+METADATA_FILE = VECTOR_DIR / "metadata.pkl"
+
 def get_embedding(text_chunk: str, model="text-embedding-3-small") -> list[float]:
     """Generate a vector embedding for a given text chunk using OpenAI (new API)."""
     client = get_openai_client()
