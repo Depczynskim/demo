@@ -91,7 +91,7 @@ def _load_latest_summary(prefix: str) -> str | None:
     return None
 
 
-def generate_report(model: str = "gpt-3.5-turbo-0125") -> str:
+def generate_report(client: openai.OpenAI, model: str = "gpt-3.5-turbo-0125") -> str:
     """Generate the full performance report via prompt_builder & OpenAI."""
 
     # Gather latest summaries as extra context chunks
@@ -153,7 +153,7 @@ def generate_report(model: str = "gpt-3.5-turbo-0125") -> str:
 # TTS helpers (OpenAI Speech API)
 # ---------------------------------------------------------------------------
 
-def _text_to_speech(text: str, *, voice: str = "alloy", tts_model: str = "tts-1") -> bytes:
+def _text_to_speech(client: openai.OpenAI, text: str, *, voice: str = "alloy", tts_model: str = "tts-1") -> bytes:
     """Return MP3 bytes for *text* using the OpenAI Speech API.
 
     Requires the Python `openai` ≥1.3 package and a valid `OPENAI_API_KEY` env var.
@@ -243,8 +243,9 @@ def render_report():
     # TTS without incurring extra token cost unless requested.
 
     if st.button("Generate Report", key="copilot_report_btn"):
+        client = get_openai_client() # Initialize client just-in-time
         with st.spinner(f"Generating report via {selected_model} …"):
-            report = generate_report(model=selected_model)
+            report = generate_report(client=client, model=selected_model)
 
         st.session_state["latest_report"] = report
         st.markdown(report)
@@ -263,8 +264,9 @@ def render_report():
             )
 
             if st.button("Generate Audio", key="tts_generate_btn"):
+                client = get_openai_client() # Initialize client just-in-time
                 with st.spinner("Generating audio…"):
-                    audio_bytes = _text_to_speech(st.session_state["latest_report"], voice=voice_choice)
+                    audio_bytes = _text_to_speech(client=client, text=st.session_state["latest_report"], voice=voice_choice)
 
                 if audio_bytes:
                     st.audio(audio_bytes, format="audio/mp3")
