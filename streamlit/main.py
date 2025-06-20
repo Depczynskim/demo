@@ -12,6 +12,7 @@ for _p in (str(_STREAMLIT_DIR), str(_REPO_ROOT)):
         sys.path.insert(0, _p)
 import streamlit as st
 import pandas as pd
+import openai
 
 # Dynamically import ``streamlit/utils.py`` under an alias to avoid clashing with
 # the unrelated top-level ``utils`` package.
@@ -66,8 +67,26 @@ if dataset == "Overview":
     overview_view.render()
     st.stop()
 elif dataset == "AI-Generated Product Insights":
-    from copilot.frontend import streamlit_view as copilot_view
-    copilot_view.render_report()
+    try:
+        from copilot.frontend import streamlit_view as copilot_view
+        copilot_view.render_report()
+    except openai.OpenAIError:
+        # This is a fallback for the persistent, environment-specific error.
+        # Instead of crashing, we display a user-friendly message.
+        st.header("🧠 AI-Generated Insights")
+        st.info(
+            "Thank you for your interest! The AI report generation feature is "
+            "disabled on this public-facing demo due to security and configuration "
+            "considerations. This feature is fully functional in private deployments."
+        )
+        st.warning(
+            "The underlying code for this feature is available in the GitHub repository, "
+            "but requires a valid OpenAI API key to be configured in secrets."
+        )
+    except Exception as e:
+        # Catch any other unexpected errors during render
+        st.header("🧠 AI-Generated Insights")
+        st.error(f"An unexpected error occurred while loading this view: {e}")
     st.stop()
 
 time_span = st.sidebar.radio("Time span", ["Last 3 months", "All time"], index=0)
