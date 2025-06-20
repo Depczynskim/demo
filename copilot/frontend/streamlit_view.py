@@ -2,21 +2,53 @@ from __future__ import annotations
 
 """Streamlit views for Copilot chat and report."""
 
-import glob
-import os
-from pathlib import Path
-from typing import List
-
-import openai
 import streamlit as st
-from dotenv import load_dotenv
-import requests
-import io
-import tempfile
+import os
+import openai
 
-# Use unified prompt builder
-from copilot.llm import prompt_builder
-from copilot.utils.openai_client import get_openai_client
+# ==============================================================================
+# TEMPORARY DIAGNOSTIC CODE
+# ==============================================================================
+try:
+    # Check if secrets are available and if the key is present
+    api_key_from_secrets = st.secrets.get("OPENAI_API_KEY")
+    if api_key_from_secrets:
+        st.warning("DIAGNOSTIC: Found OPENAI_API_KEY in st.secrets.")
+        # Forcefully set the API key for the default client. This is a temporary
+        # measure to see if it bypasses the initialization error.
+        openai.api_key = api_key_from_secrets
+        st.success("DIAGNOSTIC: Successfully set openai.api_key from secrets.")
+    else:
+        st.error("DIAGNOSTIC: OPENAI_API_KEY not found in st.secrets!")
+
+    # Now, import the rest of the modules
+    import glob
+    from pathlib import Path
+    from typing import List
+    from dotenv import load_dotenv
+    import requests
+    import io
+    import tempfile
+    from copilot.llm import prompt_builder
+    from copilot.utils.openai_client import get_openai_client
+
+    st.success("DIAGNOSTIC: All modules imported successfully.")
+
+# The rest of your file's code goes inside this `except` block
+# so we can be 100% sure where the error originates.
+except openai.OpenAIError as e:
+    st.error(f"DIAGNOSTIC: Caught openai.OpenAIError during initial import phase!")
+    st.error(f"Error details: {e}")
+    st.stop()
+except Exception as e:
+    st.error(f"DIAGNOSTIC: Caught a different exception during import phase!")
+    st.error(f"Error type: {type(e).__name__}")
+    st.error(f"Error details: {e}")
+    st.stop()
+
+# ==============================================================================
+# ORIGINAL FILE CONTENT (everything from before, now indented)
+# ==============================================================================
 
 # Load environment variables from .env file (for local development)
 load_dotenv()
