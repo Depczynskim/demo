@@ -1,3 +1,5 @@
+"""Build a vector index from summary files for semantic search."""
+
 import glob
 import hashlib
 import os
@@ -10,6 +12,7 @@ import numpy as np
 import openai
 from dotenv import load_dotenv
 import yaml  # PyYAML for front-matter parsing
+from copilot.utils.openai_client import get_openai_client
 
 # Logger
 import sys
@@ -24,30 +27,22 @@ logger = get_logger(__name__)
 # Load environment variables from .env file
 load_dotenv()
 
-# Create a client instance. The modern client automatically handles the API key
-# from the OPENAI_API_KEY environment variable.
-try:
-    client = openai.OpenAI()
-    OPENAI_ENABLED = client.api_key is not None
-except openai.OpenAIError:
-    client = None
-    OPENAI_ENABLED = False
-
-# Paths resolved relative to repo root regardless of CWD
+# Constants
+# ----------------------------------------------------------------------
+# Path to the directory containing summary files, relative to this script
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 VECTOR_DIR = BASE_DIR / "copilot" / "vector_storage"
 EMBEDDINGS_FILE = VECTOR_DIR / "embeddings.npy"
 METADATA_FILE = VECTOR_DIR / "metadata.pkl"
 
-# Use OpenAI's text-embedding-ada-002 model for real embeddings (openai>=1.0.0)
 def get_embedding(text_chunk: str, model="text-embedding-3-small") -> list[float]:
-    """Generate a vector embedding for a given text chunk using OpenAI (new API)."""
-    if not OPENAI_ENABLED:
-        raise ValueError("OpenAI API key not configured, cannot generate embeddings.")
+    """Generate a vector embedding for a given text chunk using OpenAI."""
+    # Initialize OpenAI client only when needed
+    client = get_openai_client()
     
     text_chunk = text_chunk.replace("\n", " ")
     response = client.embeddings.create(
-        input=[text_chunk], 
+        input=[text_chunk],
         model=model
     )
     return response.data[0].embedding

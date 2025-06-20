@@ -16,27 +16,10 @@ import tempfile
 
 # Use unified prompt builder
 from copilot.llm import prompt_builder
+from copilot.utils.openai_client import get_openai_client
 
 # Load environment variables from .env file (for local development)
 load_dotenv()
-
-def get_openai_client() -> openai.OpenAI:
-    """Initialize and return an OpenAI client with proper API key configuration."""
-    api_key = None
-    
-    # First try Streamlit secrets
-    if hasattr(st, 'secrets') and 'OPENAI_API_KEY' in st.secrets:
-        api_key = st.secrets['OPENAI_API_KEY']
-    
-    # Fallback to environment variable
-    if not api_key:
-        api_key = os.getenv("OPENAI_API_KEY")
-    
-    if not api_key:
-        st.error("OpenAI API key not found. Please set it in Streamlit secrets or .env file.")
-        st.stop()
-    
-    return openai.OpenAI(api_key=api_key)
 
 # Summary files live under ``copilot/summaries`` (not repo-root /summaries).
 # Resolve the path robustly even if the folder is moved later.

@@ -2,13 +2,14 @@ import os
 import glob
 from datetime import datetime
 import json
-from typing import Any
+from typing import Any, Dict
 from pathlib import Path
 import textwrap
 
 import pandas as pd
 import openai
 from dotenv import load_dotenv
+from copilot.utils.openai_client import get_openai_client
 
 # Utils
 import sys
@@ -20,9 +21,27 @@ load_dotenv()
 # REMOVED - The modern client loads this automatically from the environment
 # openai.api_key = os.getenv("OPENAI_API_KEY")
 
+def get_openai_client() -> openai.OpenAI:
+    """Initialize and return an OpenAI client with proper API key configuration."""
+    try:
+        # Try to import streamlit for deployed environment
+        import streamlit as st
+        if hasattr(st, 'secrets') and 'OPENAI_API_KEY' in st.secrets:
+            api_key = st.secrets['OPENAI_API_KEY']
+        else:
+            api_key = os.getenv("OPENAI_API_KEY")
+    except ImportError:
+        # Fallback for non-Streamlit environments
+        api_key = os.getenv("OPENAI_API_KEY")
+    
+    if not api_key:
+        raise ValueError("OpenAI API key not found in environment or Streamlit secrets")
+    
+    return openai.OpenAI(api_key=api_key)
+
 # Create a client instance
 try:
-    client = openai.OpenAI()
+    client = get_openai_client()
     # A quick check to see if the key is actually available for use.
     # If not, client.api_key will be None.
     OPENAI_ENABLED = client.api_key is not None

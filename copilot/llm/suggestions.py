@@ -12,9 +12,10 @@ from typing import List
 
 import openai
 from dotenv import load_dotenv
+from copilot.utils.openai_client import get_openai_client
 
+# Load environment variables from .env file (for local development)
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
 _DEFAULT_MODEL = os.getenv("COPILOT_SUGGESTION_MODEL", "gpt-3.5-turbo-0125")
 
@@ -34,7 +35,10 @@ def generate_suggestions(question: str, answer: str, model: str | None = None) -
     model_name = model or _DEFAULT_MODEL
 
     try:
-        resp = openai.chat.completions.create(
+        # Initialize OpenAI client only when needed
+        client = get_openai_client()
+        
+        resp = client.chat.completions.create(
             model=model_name,
             messages=[
                 {"role": "system", "content": _PROMPT_TMPL},

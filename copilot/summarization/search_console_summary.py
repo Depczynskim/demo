@@ -2,13 +2,14 @@ import os
 import glob
 import json
 from datetime import datetime
-from typing import Any
+from typing import Any, Dict
 from pathlib import Path
 import textwrap
 
 import pandas as pd
 import openai
 from dotenv import load_dotenv
+from copilot.utils.openai_client import get_openai_client
 
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'utils')))
@@ -17,14 +18,23 @@ from logger import get_logger
 # Load environment variables from .env file
 load_dotenv()
 
-# Create a client instance
-try:
-    client = openai.OpenAI()
-    # A quick check to see if the key is actually available for use.
-    # If not, client.api_key will be None.
-    OPENAI_ENABLED = client.api_key is not None
-except openai.OpenAIError:
-    OPENAI_ENABLED = False
+def get_openai_client() -> openai.OpenAI:
+    """Initialize and return an OpenAI client with proper API key configuration."""
+    try:
+        # Try to import streamlit for deployed environment
+        import streamlit as st
+        if hasattr(st, 'secrets') and 'OPENAI_API_KEY' in st.secrets:
+            api_key = st.secrets['OPENAI_API_KEY']
+        else:
+            api_key = os.getenv("OPENAI_API_KEY")
+    except ImportError:
+        # Fallback for non-Streamlit environments
+        api_key = os.getenv("OPENAI_API_KEY")
+    
+    if not api_key:
+        raise ValueError("OpenAI API key not found in environment or Streamlit secrets")
+    
+    return openai.OpenAI(api_key=api_key)
 
 logger = get_logger(__name__)
 
@@ -340,6 +350,38 @@ def iso3_to_country(alpha3: str) -> str:
         return c.name if c else code
     except Exception:
         return code
+
+
+def summarize_search_console_data(data: Dict[str, Any], model: str | None = None) -> str:
+    """Return a natural language summary of the Search Console data."""
+    # Initialize OpenAI client only when needed
+    client = get_openai_client()
+    
+    model_name = model or os.getenv("COPILOT_COMPLETION_MODEL", "gpt-3.5-turbo-0125")
+    
+    # Prepare the prompt
+    prompt = (
+        "You are a data analyst summarizing Google Search Console data. "
+        "Provide a clear, concise summary of the key metrics and insights. "
+        "Focus on the most important changes and patterns in search performance. "
+        "Use natural language and avoid technical jargon.\n\n"
+        "Here is the Search Console data to summarize:\n"
+        f"{data}"
+    )
+    
+    try:
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": prompt},
+                {"role": "user", "content": "Please summarize this Search Console data."},
+            ],
+            temperature=0.3,
+            max_tokens=500,
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        return f"Error generating Search Console summary: {str(e)}"
 
 
 if __name__ == "__main__":

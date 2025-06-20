@@ -2,12 +2,13 @@ import os
 import glob
 import json
 from datetime import datetime
-from typing import Any, List
+from typing import Any, List, Dict
 from pathlib import Path
 
 import pandas as pd
 import openai
 from dotenv import load_dotenv
+from copilot.utils.openai_client import get_openai_client
 
 # ---------------------------------------------------------------------------
 # Environment & logging utils (reuse lightweight logger from utils)
@@ -22,14 +23,23 @@ load_dotenv()
 # REMOVED - The modern client loads this automatically from the environment
 # openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Create a client instance
-try:
-    client = openai.OpenAI()
-    # A quick check to see if the key is actually available for use.
-    # If not, client.api_key will be None.
-    OPENAI_ENABLED = client.api_key is not None
-except openai.OpenAIError:
-    OPENAI_ENABLED = False
+def get_openai_client() -> openai.OpenAI:
+    """Initialize and return an OpenAI client with proper API key configuration."""
+    try:
+        # Try to import streamlit for deployed environment
+        import streamlit as st
+        if hasattr(st, 'secrets') and 'OPENAI_API_KEY' in st.secrets:
+            api_key = st.secrets['OPENAI_API_KEY']
+        else:
+            api_key = os.getenv("OPENAI_API_KEY")
+    except ImportError:
+        # Fallback for non-Streamlit environments
+        api_key = os.getenv("OPENAI_API_KEY")
+    
+    if not api_key:
+        raise ValueError("OpenAI API key not found in environment or Streamlit secrets")
+    
+    return openai.OpenAI(api_key=api_key)
 
 # Setup logger
 # -----------------------------------------------------------------------------
@@ -340,4 +350,35 @@ def main():
 
 
 if __name__ == "__main__":
-    main() 
+    main()
+
+def combine_summaries(summaries: Dict[str, Any], model: str | None = None) -> str:
+    """Return a combined natural language summary of all data sources."""
+    # Initialize OpenAI client only when needed
+    client = get_openai_client()
+    
+    model_name = model or os.getenv("COPILOT_COMPLETION_MODEL", "gpt-3.5-turbo-0125")
+    
+    # Prepare the prompt
+    prompt = (
+        "You are a data analyst combining insights from multiple analytics sources. "
+        "Provide a clear, concise summary that integrates insights from all sources. "
+        "Focus on the most important patterns and relationships between different metrics. "
+        "Use natural language and avoid technical jargon.\n\n"
+        "Here are the summaries to combine:\n"
+        f"{summaries}"
+    )
+    
+    try:
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": prompt},
+                {"role": "user", "content": "Please combine these summaries into a unified analysis."},
+            ],
+            temperature=0.3,
+            max_tokens=800,
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        return f"Error generating combined summary: {str(e)}" 

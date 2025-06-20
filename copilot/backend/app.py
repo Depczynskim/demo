@@ -10,7 +10,7 @@ Env vars required:
 """
 
 import os
-from typing import List
+from typing import List, Dict
 
 import openai
 from dotenv import load_dotenv
@@ -36,17 +36,25 @@ from copilot.llm.suggestions import generate_suggestions  # noqa: E402
 # Central config – provides the default model name
 from config import OPENAI_COMPLETION_MODEL, setup_logging, PROJECT_ROOT, SUMMARIES_DIR  # noqa: E402
 
-# Remove global API key setting
-# openai.api_key = os.getenv("OPENAI_API_KEY")
+load_dotenv()
 
-# Create a single, reusable client instance
-# The key will be loaded from .env via load_dotenv() in the client itself
-try:
-    client = openai.OpenAI()
-except openai.OpenAIError:
-    # This will provide a clearer error if the key is missing on startup
-    print("FATAL: OpenAI API key not found. Please set OPENAI_API_KEY environment variable.")
-    client = None
+def get_openai_client() -> openai.OpenAI:
+    """Initialize and return an OpenAI client with proper API key configuration."""
+    try:
+        # Try to import streamlit for deployed environment
+        import streamlit as st
+        if hasattr(st, 'secrets') and 'OPENAI_API_KEY' in st.secrets:
+            api_key = st.secrets['OPENAI_API_KEY']
+        else:
+            api_key = os.getenv("OPENAI_API_KEY")
+    except ImportError:
+        # Fallback for non-Streamlit environments
+        api_key = os.getenv("OPENAI_API_KEY")
+    
+    if not api_key:
+        raise ValueError("OpenAI API key not found in environment or Streamlit secrets")
+    
+    return openai.OpenAI(api_key=api_key)
 
 # App setup
 # -----------------------------------------------------------------------------
