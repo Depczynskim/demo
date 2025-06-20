@@ -137,7 +137,8 @@ def render_location_analysis(df_parsed):
     
     if not map_df.empty:
         st.pydeck_chart(pdk.Deck(
-            map_style='mapbox://styles/mapbox/light-v9',
+            map_provider='carto',               # no token required
+            map_style='light',                  # carto basemap style
             initial_view_state=pdk.ViewState(
                 latitude=map_df['lat'].mean(),
                 longitude=map_df['lon'].mean(),
