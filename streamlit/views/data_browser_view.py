@@ -5,18 +5,20 @@ from utils import get_filtered_date_range
 def render(context):
     """Render the Data Browser view."""
     st.title("🔬 GA4 Raw Data Browser")
-    st.markdown(
-        """
-        This view provides direct access to the raw event data from Google Analytics 4. It's a powerful tool 
-        for detailed analysis and for verifying that analytics tracking is working as expected.
 
-        **What you can do here:**
-        
-        *   **Filter Specific Events:** Isolate particular user interactions, such as `page_view` or `add_to_cart`, for granular analysis.
-        *   **Debug Analytics:** Confirm that custom events and parameters are being captured correctly.
-        *   **Explore User Journeys:** Follow sequences of events to understand detailed user behavior patterns.
-        """
-    )
+    with st.expander("ℹ️ About this view", expanded=False):
+        st.markdown(
+            """
+            This view provides direct access to the raw event data from Google Analytics 4. It's a powerful tool 
+            for detailed analysis and for verifying that analytics tracking is working as expected.
+
+            **What you can do here:**
+            
+            *   **Filter Specific Events:** Isolate particular user interactions, such as `page_view` or `add_to_cart`, for granular analysis.
+            *   **Debug Analytics:** Confirm that custom events and parameters are being captured correctly.
+            *   **Explore User Journeys:** Follow sequences of events to understand detailed user behavior patterns.
+            """
+        )
     df = context['df']
     _parse_ga4_event_params = context['_parse_ga4_event_params']
     categorize_page_type = context['categorize_page_type']
