@@ -17,37 +17,26 @@ import tempfile
 # Use unified prompt builder
 from copilot.llm import prompt_builder
 
-# --- Secret / API Key Management ---
+# Load environment variables from .env file (for local development)
+load_dotenv()
 
 def get_openai_client() -> openai.OpenAI:
-    """
-    Initializes and returns an OpenAI client.
-
-    It tries to get the API key from Streamlit secrets first, which is the standard
-    for deployed apps. Falls back to environment variables (and .env file) for
-    local development.
-    """
-    try:
-        # This will automatically use the OPENAI_API_KEY env var if set
-        client = openai.OpenAI()
-        if not client.api_key:
-             # If run in streamlit, check st.secrets
-            if hasattr(st, 'secrets') and 'OPENAI_API_KEY' in st.secrets:
-                client.api_key = st.secrets['OPENAI_API_KEY']
-
-        if not client.api_key:
-            st.error("OpenAI API key is not set. Please add it to your Streamlit secrets or .env file.")
-            st.stop()
-        
-        return client
-
-    except Exception as e:
-        st.error(f"Failed to initialize OpenAI client: {e}")
+    """Initialize and return an OpenAI client with proper API key configuration."""
+    api_key = None
+    
+    # First try Streamlit secrets
+    if hasattr(st, 'secrets') and 'OPENAI_API_KEY' in st.secrets:
+        api_key = st.secrets['OPENAI_API_KEY']
+    
+    # Fallback to environment variable
+    if not api_key:
+        api_key = os.getenv("OPENAI_API_KEY")
+    
+    if not api_key:
+        st.error("OpenAI API key not found. Please set it in Streamlit secrets or .env file.")
         st.stop()
-
-
-# Get the client once and use it throughout the module
-client = get_openai_client()
+    
+    return openai.OpenAI(api_key=api_key)
 
 # Summary files live under ``copilot/summaries`` (not repo-root /summaries).
 # Resolve the path robustly even if the folder is moved later.
@@ -83,8 +72,11 @@ def _load_latest_summary(prefix: str) -> str | None:
     return None
 
 
-def generate_report(client: openai.OpenAI, model: str = "gpt-3.5-turbo-0125") -> str:
+def generate_report(model: str = "gpt-3.5-turbo-0125") -> str:
     """Generate the full performance report via prompt_builder & OpenAI."""
+    
+    # Initialize OpenAI client when needed
+    client = get_openai_client()
 
     # Gather latest summaries as extra context chunks
     ga4 = _load_latest_summary("ga4")
@@ -128,29 +120,29 @@ def generate_report(client: openai.OpenAI, model: str = "gpt-3.5-turbo-0125") ->
         context_chunks=context_chunks,
     )
 
-    # Increase the token allowance so that richer GPT-4o reports don't get
-    # truncated. 2 000 tokens gives ample room for the longer multi-section
-    # markdown output plus JSON context reflections.
-    response = client.chat.completions.create(
-        model=model,
-        messages=messages,
-        temperature=0.3,
-        max_tokens=2000,
-    )
-
-    return response.choices[0].message.content
+    try:
+        response = client.chat.completions.create(
+            model=model,
+            messages=messages,
+            temperature=0.3,
+            max_tokens=2000,
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        st.error(f"Failed to generate report: {str(e)}")
+        return ""
 
 
 # ---------------------------------------------------------------------------
 # TTS helpers (OpenAI Speech API)
 # ---------------------------------------------------------------------------
 
-def _text_to_speech(client: openai.OpenAI, text: str, *, voice: str = "alloy", tts_model: str = "tts-1") -> bytes:
-    """Return MP3 bytes for *text* using the OpenAI Speech API.
-
-    Requires the Python `openai` ≥1.3 package and a valid `OPENAI_API_KEY` env var.
-    """
+def _text_to_speech(text: str, *, voice: str = "alloy", tts_model: str = "tts-1") -> bytes:
+    """Return MP3 bytes for *text* using the OpenAI Speech API."""
     try:
+        # Initialize OpenAI client when needed
+        client = get_openai_client()
+        
         response = client.audio.speech.create(
             model=tts_model,
             voice=voice,
@@ -235,9 +227,8 @@ def render_report():
     # TTS without incurring extra token cost unless requested.
 
     if st.button("Generate Report", key="copilot_report_btn"):
-        client = get_openai_client() # Initialize client just-in-time
         with st.spinner(f"Generating report via {selected_model} …"):
-            report = generate_report(client=client, model=selected_model)
+            report = generate_report(model=selected_model)
 
         st.session_state["latest_report"] = report
         st.markdown(report)
@@ -256,9 +247,8 @@ def render_report():
             )
 
             if st.button("Generate Audio", key="tts_generate_btn"):
-                client = get_openai_client() # Initialize client just-in-time
                 with st.spinner("Generating audio…"):
-                    audio_bytes = _text_to_speech(client=client, text=st.session_state["latest_report"], voice=voice_choice)
+                    audio_bytes = _text_to_speech(st.session_state["latest_report"], voice=voice_choice)
 
                 if audio_bytes:
                     st.audio(audio_bytes, format="audio/mp3")

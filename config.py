@@ -28,7 +28,6 @@ logger = logging.getLogger(__name__)
 def _check_required_env_vars() -> None:
     """Check that required environment variables are set."""
     required_vars = [
-        "OPENAI_API_KEY",
         "GOOGLE_APPLICATION_CREDENTIALS"
     ]
     
@@ -38,28 +37,6 @@ def _check_required_env_vars() -> None:
         logger.error(f"Missing required environment variables: {', '.join(missing_vars)}")
         logger.error("Please set these variables in your .env file or environment")
         logger.error("See .env.example for a template")
-
-# API Keys and Authentication
-# Make the app Streamlit-aware: try to get the key from st.secrets first.
-try:
-    import streamlit as st
-    if 'OPENAI_API_KEY' in st.secrets:
-        OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
-    else:
-        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-except (ImportError, AttributeError):
-    # Fallback for non-Streamlit environments (e.g., backend, scripts)
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
-if not OPENAI_API_KEY:
-    logger.warning("OPENAI_API_KEY not set - LLM functionality will not work")
-
-# OpenAI Configuration
-OPENAI_EMBEDDING_MODEL = os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-ada-002")
-OPENAI_COMPLETION_MODEL = os.getenv("OPENAI_COMPLETION_MODEL", "gpt-4-turbo-preview")
-
-# Suggestion generation model (cheap & fast)
-COPILOT_SUGGESTION_MODEL = os.getenv("COPILOT_SUGGESTION_MODEL", "gpt-3.5-turbo-0125")
 
 # Google Cloud Settings
 GOOGLE_APPLICATION_CREDENTIALS = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
