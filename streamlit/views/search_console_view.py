@@ -89,18 +89,20 @@ def render(context):
 
     # --- Header and Global Filters ---
     st.title("🔍 Search Console Analysis")
-    st.markdown(
-        """
-        This view shows how your website performs in Google Search. Use it to see which search queries bring users 
-        to your site, which pages are most popular, and how your search ranking changes over time.
 
-        **What you can do here:**
-        
-        *   **Compare Time Periods:** See if your search traffic is growing or declining.
-        *   **Filter by Location & Device:** Understand how performance differs across countries and on mobile vs. desktop.
-        *   **Analyze Specific Pages & Queries:** Drill down to see the exact search terms that lead to a specific page.
-        """
-    )
+    with st.expander("ℹ️ About this dashboard", expanded=False):
+        st.markdown(
+            """
+            This view shows how your website performs in Google Search. Use it to see which search queries bring users 
+            to your site, which pages are most popular, and how your search ranking changes over time.
+
+            **What you can do here:**
+            
+            *   **Compare Time Periods:** See if your search traffic is growing or declining.
+            *   **Filter by Location & Device:** Understand how performance differs across countries and on mobile vs. desktop.
+            *   **Analyze Specific Pages & Queries:** Drill down to see the exact search terms that lead to a specific page.
+            """
+        )
 
     # Show current date range if dates are available
     start_date = date_info.get('start_date')
