@@ -192,6 +192,36 @@ def render(context):
                 )
             return
         # --- Tabbed Layout ---
+        # Custom CSS to make tabs more prominent
+        st.markdown("""
+            <style>
+                div[data-testid="stTabs"] div[role="tablist"] {
+                    border: 2px solid #EAEBEF;
+                    border-radius: 10px;
+                    padding: 5px;
+                    gap: 10px;
+                    justify-content: center;
+                }
+                div[data-testid="stTabs"] button[role="tab"] {
+                    flex-grow: 1;
+                    text-align: center;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    border-radius: 8px !important;
+                    border: none !important;
+                    padding: 10px 0;
+                    transition: background-color 0.2s ease-in-out;
+                }
+                div[data-testid="stTabs"] button[role="tab"]:hover {
+                    background-color: #F0F2F6;
+                }
+                div[data-testid="stTabs"] button[aria-selected="true"] {
+                    background-color: #FFFFFF;
+                    color: #1E2022;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                }
+            </style>
+        """, unsafe_allow_html=True)
         tab1, tab2, tab3, tab4 = st.tabs(["📊 Performance Overview", "🚀 Top Movers", "🔍 Page Deep-Dive", "💬 Query Deep-Dive"])
         with tab1:
             render_overview(current_data, previous_data)
