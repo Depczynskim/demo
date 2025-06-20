@@ -11,18 +11,21 @@ from utils import get_filtered_date_range
 def _display_filters(df_parsed):
     """Displays product and country filters and returns the filtered dataframe and selections."""
     st.title("🛍️ Product Performance Analysis")
-    st.markdown(
-        """
-        This view provides a detailed look at how individual products are performing. Use it to understand 
-        customer engagement and identify which products are most popular.
 
-        **What you can explore here:**
-        
-        *   **Traffic Sources:** See which channels (e.g., Google Search, Ads, direct visits) are driving traffic to specific product pages.
-        *   **Geographic Interest:** Discover which countries show the most interest in each product.
-        *   **User Behavior:** Analyze how users interact with product pages, including clicks and other events.
-        """
-    )
+    # Force a redeploy on Streamlit Cloud
+    with st.expander("ℹ️ About this dashboard", expanded=False):
+        st.markdown(
+            """
+            This view provides a detailed look at how individual products are performing. Use it to understand 
+            customer engagement and identify which products are most popular.
+
+            **What you can explore here:**
+            
+            *   **Traffic Sources:** See which channels (e.g., Google Search, Ads, direct visits) are driving traffic to specific product pages.
+            *   **Geographic Interest:** Discover which countries show the most interest in each product.
+            *   **User Behavior:** Analyze how users interact with product pages, including clicks and other events.
+            """
+        )
     
     st.markdown("## Product Analysis Filters")
     

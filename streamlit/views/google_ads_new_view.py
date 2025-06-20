@@ -686,18 +686,22 @@ def render(context):
 
     # --- Tabbed Layout ---
     st.title("💰 Google Ads Performance")
-    st.markdown(
-        """
-        This view breaks down the performance of your Google Ads campaigns. Use it to see where your advertising 
-        budget is having the most impact and find opportunities for optimization.
 
-        **What you can explore:**
-        
-        *   **Location Insights:** Discover which countries and cities are driving clicks and conversions.
-        *   **Timing Analysis:** Identify the days and times when your ads are most effective.
-        *   **Campaign Performance:** Compare campaigns, ad groups, and keywords by cost, clicks, and conversions to understand ROI.
-        """
-    )
+    # Force a redeploy on Streamlit Cloud
+    with st.expander("ℹ️ About this dashboard", expanded=False):
+        st.markdown(
+            """
+            This view breaks down the performance of your Google Ads campaigns. Use it to see where your advertising 
+            budget is having the most impact and find opportunities for optimization.
+
+            **What you can explore:**
+            
+            *   **Location Insights:** Discover which countries and cities are driving clicks and conversions.
+            *   **Timing Analysis:** Identify the days and times when your ads are most effective.
+            *   **Campaign Performance:** Compare campaigns, ad groups, and keywords by cost, clicks, and conversions to understand ROI.
+            """
+        )
+
     tab1, tab2, tab3 = st.tabs(["📍 Location Insights", "⏰ Timing Analysis", "📊 Campaign Performance"])
 
     with tab1:
