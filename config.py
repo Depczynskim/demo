@@ -40,7 +40,17 @@ def _check_required_env_vars() -> None:
         logger.error("See .env.example for a template")
 
 # API Keys and Authentication
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# Make the app Streamlit-aware: try to get the key from st.secrets first.
+try:
+    import streamlit as st
+    if 'OPENAI_API_KEY' in st.secrets:
+        OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
+    else:
+        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+except (ImportError, AttributeError):
+    # Fallback for non-Streamlit environments (e.g., backend, scripts)
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
 if not OPENAI_API_KEY:
     logger.warning("OPENAI_API_KEY not set - LLM functionality will not work")
 

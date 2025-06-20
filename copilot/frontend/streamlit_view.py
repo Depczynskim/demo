@@ -27,32 +27,24 @@ def get_openai_client() -> openai.OpenAI:
     for deployed apps. Falls back to environment variables (and .env file) for
     local development.
     """
-    api_key = None
-    st.info("Attempting to configure OpenAI client...")
+    try:
+        # This will automatically use the OPENAI_API_KEY env var if set
+        client = openai.OpenAI()
+        if not client.api_key:
+             # If run in streamlit, check st.secrets
+            if hasattr(st, 'secrets') and 'OPENAI_API_KEY' in st.secrets:
+                client.api_key = st.secrets['OPENAI_API_KEY']
 
-    # First, try Streamlit secrets (for deployed app)
-    if hasattr(st, 'secrets') and 'OPENAI_API_KEY' in st.secrets:
-        st.info("Found 'st.secrets', attempting to read 'OPENAI_API_KEY'.")
-        api_key = st.secrets.get('OPENAI_API_KEY')
-        if api_key:
-            st.info(f"OpenAI API key loaded from st.secrets. Length: {len(api_key)}. Key starts with: {api_key[:4]}")
-        else:
-            st.warning("Found 'OPENAI_API_KEY' in st.secrets, but it is empty.")
-    else:
-        st.info("No 'OPENAI_API_KEY' in st.secrets. Falling back to environment variables.")
-        # Fallback to environment variables (for local development)
-        load_dotenv()
-        api_key = os.getenv("OPENAI_API_KEY")
-        if api_key:
-            st.info(f"OpenAI API key loaded from .env file. Length: {len(api_key)}. Key starts with: {api_key[:4]}")
-        else:
-            st.warning("No 'OPENAI_API_KEY' found in environment variables.")
+        if not client.api_key:
+            st.error("OpenAI API key is not set. Please add it to your Streamlit secrets or .env file.")
+            st.stop()
+        
+        return client
 
-    if not api_key:
-        st.error("Fatal: OpenAI API key is not set. The application cannot proceed. Please add the key to your Streamlit secrets or a local .env file.")
+    except Exception as e:
+        st.error(f"Failed to initialize OpenAI client: {e}")
         st.stop()
-    
-    return openai.OpenAI(api_key=api_key)
+
 
 # Get the client once and use it throughout the module
 client = get_openai_client()
