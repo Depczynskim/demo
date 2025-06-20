@@ -19,18 +19,28 @@ from copilot.llm import prompt_builder
 
 # --- Secret / API Key Management ---
 
-# Try to get the key from Streamlit secrets first, which is the deployed-app standard.
-# Fall back to environment variables (and .env file) for local development.
-if 'OPENAI_API_KEY' in st.secrets:
-    openai.api_key = st.secrets['OPENAI_API_KEY']
-else:
-    load_dotenv()
-    openai.api_key = os.getenv("OPENAI_API_KEY")
+def get_openai_client() -> openai.OpenAI:
+    """
+    Initializes and returns an OpenAI client.
 
-# Check if the key is still not set
-if not openai.api_key:
-    st.error("OpenAI API key is not set. Please add it to your Streamlit secrets or .env file.")
-    st.stop()
+    It tries to get the API key from Streamlit secrets first, which is the standard
+    for deployed apps. Falls back to environment variables (and .env file) for
+    local development.
+    """
+    if 'OPENAI_API_KEY' in st.secrets:
+        api_key = st.secrets['OPENAI_API_KEY']
+    else:
+        load_dotenv()
+        api_key = os.getenv("OPENAI_API_KEY")
+
+    if not api_key:
+        st.error("OpenAI API key is not set. Please add it to your Streamlit secrets or .env file.")
+        st.stop()
+    
+    return openai.OpenAI(api_key=api_key)
+
+# Get the client once and use it throughout the module
+client = get_openai_client()
 
 # Summary files live under ``copilot/summaries`` (not repo-root /summaries).
 # Resolve the path robustly even if the folder is moved later.
@@ -114,7 +124,7 @@ def generate_report(model: str = "gpt-3.5-turbo-0125") -> str:
     # Increase the token allowance so that richer GPT-4o reports don't get
     # truncated. 2 000 tokens gives ample room for the longer multi-section
     # markdown output plus JSON context reflections.
-    response = openai.chat.completions.create(
+    response = client.chat.completions.create(
         model=model,
         messages=messages,
         temperature=0.3,
@@ -134,7 +144,7 @@ def _text_to_speech(text: str, *, voice: str = "alloy", tts_model: str = "tts-1"
     Requires the Python `openai` ≥1.3 package and a valid `OPENAI_API_KEY` env var.
     """
     try:
-        response = openai.audio.speech.create(
+        response = client.audio.speech.create(
             model=tts_model,
             voice=voice,
             input=text,
