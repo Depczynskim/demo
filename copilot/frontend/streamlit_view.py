@@ -2,53 +2,21 @@ from __future__ import annotations
 
 """Streamlit views for Copilot chat and report."""
 
-import streamlit as st
+import glob
 import os
+from pathlib import Path
+from typing import List
+
 import openai
+import streamlit as st
+from dotenv import load_dotenv
+import requests
+import io
+import tempfile
 
-# ==============================================================================
-# TEMPORARY DIAGNOSTIC CODE
-# ==============================================================================
-try:
-    # Check if secrets are available and if the key is present
-    api_key_from_secrets = st.secrets.get("OPENAI_API_KEY")
-    if api_key_from_secrets:
-        st.warning("DIAGNOSTIC: Found OPENAI_API_KEY in st.secrets.")
-        # Forcefully set the API key for the default client. This is a temporary
-        # measure to see if it bypasses the initialization error.
-        openai.api_key = api_key_from_secrets
-        st.success("DIAGNOSTIC: Successfully set openai.api_key from secrets.")
-    else:
-        st.error("DIAGNOSTIC: OPENAI_API_KEY not found in st.secrets!")
-
-    # Now, import the rest of the modules
-    import glob
-    from pathlib import Path
-    from typing import List
-    from dotenv import load_dotenv
-    import requests
-    import io
-    import tempfile
-    from copilot.llm import prompt_builder
-    from copilot.utils.openai_client import get_openai_client
-
-    st.success("DIAGNOSTIC: All modules imported successfully.")
-
-# The rest of your file's code goes inside this `except` block
-# so we can be 100% sure where the error originates.
-except openai.OpenAIError as e:
-    st.error(f"DIAGNOSTIC: Caught openai.OpenAIError during initial import phase!")
-    st.error(f"Error details: {e}")
-    st.stop()
-except Exception as e:
-    st.error(f"DIAGNOSTIC: Caught a different exception during import phase!")
-    st.error(f"Error type: {type(e).__name__}")
-    st.error(f"Error details: {e}")
-    st.stop()
-
-# ==============================================================================
-# ORIGINAL FILE CONTENT (everything from before, now indented)
-# ==============================================================================
+# Use unified prompt builder
+from copilot.llm import prompt_builder
+from copilot.utils.openai_client import get_openai_client
 
 # Load environment variables from .env file (for local development)
 load_dotenv()
@@ -242,11 +210,26 @@ def render_report():
     # TTS without incurring extra token cost unless requested.
 
     if st.button("Generate Report", key="copilot_report_btn"):
-        with st.spinner(f"Generating report via {selected_model} …"):
-            report = generate_report(model=selected_model)
+        # Check a secret or env var to decide if the feature is enabled.
+        # This allows the feature to be disabled on public-facing demos.
+        enable_reporting = os.getenv("ENABLE_OPENAI_REPORTING", "false").lower() == "true"
+        try:
+            if 'ENABLE_OPENAI_REPORTING' in st.secrets:
+                enable_reporting = str(st.secrets.get("ENABLE_OPENAI_REPORTING", "false")).lower() == "true"
+        except (ImportError, AttributeError):
+            pass  # Not in a Streamlit env or secrets not available
 
-        st.session_state["latest_report"] = report
-        st.markdown(report)
+        if enable_reporting:
+            with st.spinner(f"Generating report via {selected_model} …"):
+                report = generate_report(model=selected_model)
+            st.session_state["latest_report"] = report
+            st.markdown(report)
+        else:
+            st.info(
+                "Thank you for your interest! Report generation is disabled on this "
+                "public-facing demo due to security considerations. This feature is fully "
+                "functional in private deployments."
+            )
 
     # ───────────────────────────────────────────────────────────────────────
     # Text-to-Speech playback
